@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semua Produk — Lumière</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/lumiere-home.css">
+  <link rel="stylesheet" href="../css/all-products.css">
+</head>
+<body>
+
+<!-- Background Layer & Particles (sama dengan home) -->
+<div class="bg-layer" id="bg"></div>
+
+<div class="announce-bar">Gratis ongkir untuk pembelian di atas Rp 500.000 &nbsp;·&nbsp; Koleksi baru setiap Jumat</div>
+
+<!-- NAVBAR -->
+<header>
+  <div class="nav-container">
+    <a href="lumiere-home.html" class="brand">Lumière</a>
+    <ul class="nav-links">
+      <li><a href="#">Koleksi</a></li>
+      <li><a href="#">Kategori</a></li>
+      <li><a href="#">Editorial</a></li>
+      <li><a href="#">Tentang</a></li>
+    </ul>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="Cari produk..." oninput="filterAllProducts()">
+    </div>
+    <div class="nav-actions">
+      <button class="nav-icon-btn" title="Wishlist">
+        <i class="fa-regular fa-heart"></i>
+      </button>
+      <div class="user-menu-wrap">
+        <button class="nav-icon-btn" id="userBtn" title="Akun">
+          <i class="fa-regular fa-user"></i>
+        </button>
+        <div class="user-dropdown" id="userDropdown">
+          <div id="guestMenu">
+            <a href="lumiere-auth.html?tab=login"><i class="fa-regular fa-arrow-right-to-bracket"></i> Masuk</a>
+            <a href="lumiere-auth.html?tab=register"><i class="fa-regular fa-user-plus"></i> Daftar</a>
+          </div>
+          <div id="loggedMenu" style="display:none">
+            <a href="lumiere-profile.html"><i class="fa-regular fa-user"></i> Profil Saya</a>
+            <a href="lumiere-profile.html"><i class="fa-regular fa-bag-shopping"></i> Pesanan</a>
+            <a href="#"><i class="fa-regular fa-heart"></i> Wishlist</a>
+            <div id="adminLink" style="display:none">
+              <div class="divider"></div>
+              <a href="../Admin/admin.html"><i class="fa-regular fa-gauge-high"></i> Dashboard Admin</a>
+            </div>
+            <div class="divider"></div>
+            <button class="logout" onclick="logout()"><i class="fa-regular fa-right-from-bracket"></i> Keluar</button>
+          </div>
+        </div>
+      </div>
+      <button class="nav-icon-btn" onclick="openCart()" title="Keranjang" style="position:relative;">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="cart-badge" id="cartBadge" style="display:none">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="ap-page-hero">
+  <p class="hero-eyebrow">Koleksi Lengkap · 2026</p>
+  <h1>Semua <em>Produk</em></h1>
+  <p>Temukan setiap koleksi Lumière, dari aksesori eksklusif hingga fashion pilihan.</p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="all-products-container">
+
+  <!-- SIDEBAR FILTER -->
+  <aside class="filter-sidebar">
+    <div class="filter-section">
+      <div class="filter-title">
+        <i class="fa-solid fa-sliders"></i>
+        Filter
+      </div>
+      <div class="filter-divider"></div>
+      <h4 class="filter-label">Kategori</h4>
+      <div class="filter-options" id="filterCategories"></div>
+    </div>
+
+    <div class="filter-section">
+      <h4 class="filter-label">Urutkan</h4>
+      <div class="sort-list">
+        <label class="sort-radio">
+          <input type="radio" name="sort" value="newest" checked onchange="sortProducts(this.value)">
+          <span>Terbaru</span>
+        </label>
+        <label class="sort-radio">
+          <input type="radio" name="sort" value="price-low" onchange="sortProducts(this.value)">
+          <span>Harga Terendah</span>
+        </label>
+        <label class="sort-radio">
+          <input type="radio" name="sort" value="price-high" onchange="sortProducts(this.value)">
+          <span>Harga Tertinggi</span>
+        </label>
+        <label class="sort-radio">
+          <input type="radio" name="sort" value="popular" onchange="sortProducts(this.value)">
+          <span>Terpopuler</span>
+        </label>
+      </div>
+    </div>
+
+    <button class="filter-reset-btn" onclick="resetFilters()">
+      <i class="fa-solid fa-rotate-left"></i> Reset Filter
+    </button>
+  </aside>
+
+  <!-- MAIN GRID -->
+  <main class="products-main">
+    <div class="products-header">
+      <div class="products-header-left">
+        <span class="products-count" id="productsCount">Memuat produk...</span>
+      </div>
+      <!-- Sort dropdown untuk mobile -->
+      <div class="sort-options-mobile">
+        <select id="sortBy" onchange="sortProducts(this.value)">
+          <option value="newest">Terbaru</option>
+          <option value="price-low">Harga: Terendah</option>
+          <option value="price-high">Harga: Tertinggi</option>
+          <option value="popular">Populer</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="prod-grid" id="allProdGrid"></div>
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Lumière</div>
+        <p class="footer-desc">Menghadirkan koleksi premium dengan sentuhan editorial untuk mereka yang menghargai keindahan dalam kesederhanaan.</p>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+          <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Belanja</h4>
+        <ul>
+          <li><a href="#">Semua Produk</a></li>
+          <li><a href="#">Fashion</a></li>
+          <li><a href="#">Aksesoris</a></li>
+          <li><a href="#">Lifestyle</a></li>
+          <li><a href="#">Flash Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Bantuan</h4>
+        <ul>
+          <li><a href="#">Cara Pemesanan</a></li>
+          <li><a href="#">Pengiriman</a></li>
+          <li><a href="#">Pengembalian</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Hubungi Kami</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Perusahaan</h4>
+        <ul>
+          <li><a href="#">Tentang Lumière</a></li>
+          <li><a href="#">Karir</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Kebijakan Privasi</a></li>
+          <li><a href="#">Syarat & Ketentuan</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Lumière. Hak cipta dilindungi.</span>
+      <span>Dibuat dengan penuh cinta di Indonesia</span>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h3>Keranjang Belanja</h3>
+    <button class="drawer-close" onclick="closeCart()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-footer" id="drawerFooter" style="display:none">
+    <div class="cart-total-row">
+      <span>Total</span>
+      <strong id="cartTotal"></strong>
+    </div>
+    <button class="btn-checkout" onclick="goCheckout()">Lanjut ke Pembayaran</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="../javascript/lumiere-home.js"></script>
+<script src="../javascript/all-products.js"></script>
+
+<!-- Particles (sama dengan home) -->
+<script>
+(function() {
+  const bg = document.getElementById('bg');
+  if (!bg) return;
+  for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 3 + 1;
+    p.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      bottom:-10px;
+      opacity:0;
+      animation-duration:${10 + Math.random()*15}s;
+      animation-delay:${Math.random()*12}s;
+    `;
+    bg.appendChild(p);
+  }
+})();
+</script>
+</body>
+</html>

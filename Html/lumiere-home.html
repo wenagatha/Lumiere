@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumière — Premium Collection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/lumiere-home.css">
+</head>
+<body>
+
+<!-- Background Layer & Particles (Disamakan dengan Auth) -->
+<div class="bg-layer" id="bg"></div>
+
+<div class="announce-bar">Gratis ongkir untuk pembelian di atas Rp 500.000 &nbsp;·&nbsp; Koleksi baru setiap Jumat</div>
+
+<!-- NAVBAR -->
+<header>
+  <div class="nav-container">
+    <a href="index.html" class="brand">Lumière</a>
+    <ul class="nav-links">
+      <li><a href="#">Koleksi</a></li>
+      <li><a href="#">Kategori</a></li>
+      <li><a href="#">Editorial</a></li>
+      <li><a href="#">Tentang</a></li>
+    </ul>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="Cari produk..." oninput="filterProducts()">
+    </div>
+    <div class="nav-actions">
+      <button class="nav-icon-btn" onclick="toggleWishlist()" title="Wishlist">
+        <i class="fa-regular fa-heart"></i>
+      </button>
+      <div class="user-menu-wrap">
+        <button class="nav-icon-btn" id="userBtn" title="Akun">
+          <i class="fa-regular fa-user"></i>
+        </button>
+        <div class="user-dropdown" id="userDropdown">
+          <div id="guestMenu">
+            <a href="lumiere-auth.html?tab=login"><i class="fa-solid fa-arrow-right-to-bracket"></i> Masuk</a>
+            <a href="lumiere-auth.html?tab=register"><i class="fa-solid fa-user-pen"></i> Daftar</a>
+          </div>
+          <div id="loggedMenu" style="display:none">
+            <a href="lumiere-profile.html"><i class="fa-regular fa-user"></i> Profil Saya</a>
+            <a href="lumiere-cart (1).html"><i class="fa-solid fa-basket-shopping"></i> Pesanan</a>
+            <a href="wishlist.html"><i class="fa-regular fa-heart"></i> Wishlist</a>
+            <div id="adminLink" style="display:none">
+              <div class="divider"></div>
+              <a href="admin.html"><i class="fa-regular fa-gauge-high"></i> Dashboard Admin</a>
+            </div>
+            <div class="divider"></div>
+            <button class="logout" onclick="logout()"><i class="fa-regular fa-right-from-bracket"></i> Keluar</button>
+          </div>
+        </div>
+      </div>
+      <a href="lumiere-cart%20(1).html" class="nav-icon-btn" title="Keranjang">
+        <i class="fa-solid fa-basket-shopping"></i>
+        <span class="cart-badge" id="cartBadge" style="display:none">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-main">
+      <div class="hero-main-content">
+        <p class="hero-eyebrow">Koleksi Eksklusif · 2026</p>
+        <h1>Keanggunan<br>yang <em>Abadi</em></h1>
+        <p>Setiap potongan dirancang untuk merayakan keindahan yang melampaui musim.</p>
+        <a href="#produk" class="btn-gold">Jelajahi Koleksi <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="hero-card" onclick="filterCat('Aksesoris')">
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80" alt="Aksesoris" loading="lazy">
+      <div class="hero-card-label">
+        <span>Temukan</span>
+        <strong>Aksesoris</strong>
+      </div>
+    </div>
+    <div class="hero-card" onclick="filterCat('Fashion')">
+      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80" alt="Fashion" loading="lazy">
+      <div class="hero-card-label">
+        <span>Terbaru</span>
+        <strong>Fashion</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOOKBOOK -->
+<section class="lookbook">
+  <div class="lb-head">
+    <h2 class="lb-title">Editorial <em>Lookbook</em></h2>
+    <a class="lb-link" href="all-products.html">Lihat Semua <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+  <div class="lb-grid">
+    <div class="lb-item">
+      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80" alt="Fashion" loading="lazy">
+      <div class="lb-label"><span>Fashion</span><strong>Dressed to Reign</strong></div>
+    </div>
+    <div class="lb-item">
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80" alt="Aksesoris" loading="lazy">
+      <div class="lb-label"><span>Aksesoris</span><strong>The Fine Details</strong></div>
+    </div>
+    <div class="lb-item">
+      <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=400&q=80" alt="Tas" loading="lazy">
+      <div class="lb-label"><span>Tas</span><strong>Carry in Style</strong></div>
+    </div>
+    <div class="lb-item">
+      <img src="https://images.unsplash.com/photo-1506152983158-b4a74a01c721?w=300&q=80" alt="Lifestyle" loading="lazy">
+      <div class="lb-label"><span>Lifestyle</span><strong>Live Luxe</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- KATEGORI + PRODUK -->
+<section class="section" id="produk">
+  <div class="section-head">
+    <h2>Koleksi Pilihan</h2>
+    <a href="all-products.html">Lihat Semua <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+  <div class="cat-strip" id="catStrip"></div>
+</section>
+
+<section class="section" style="margin-top: 0">
+  <div class="prod-grid" id="prodGrid"></div>
+</section>
+
+<!-- MID BANNER -->
+<section class="mid-banner">
+  <div class="mid-banner-inner">
+    <div class="mid-banner-text">
+      <h2>Flash Drop<br><em>Hari Ini</em></h2>
+      <p>Penawaran terbatas 24 jam. Produk eksklusif dengan diskon hingga 50% untuk member.</p>
+    </div>
+    <div class="mid-banner-actions">
+      <a href="lumiere-auth.html?tab=register" class="btn-gold">Daftar Sekarang <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#produk" class="btn-outline-white">Lihat Promo</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST SIGNAL BAR -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-item">
+      <i class="fa-solid fa-shield-halved"></i>
+      <div class="trust-item-text">
+        <strong>Pembayaran Aman</strong>
+        <span>SSL & enkripsi terjamin</span>
+      </div>
+    </div>
+    <div class="trust-item">
+      <i class="fa-solid fa-rotate-left"></i>
+      <div class="trust-item-text">
+        <strong>Retur 30 Hari</strong>
+        <span>Tanpa pertanyaan</span>
+      </div>
+    </div>
+    <div class="trust-item">
+      <i class="fa-solid fa-truck-fast"></i>
+      <div class="trust-item-text">
+        <strong>Gratis Ongkir</strong>
+        <span>Pembelian di atas Rp 500.000</span>
+      </div>
+    </div>
+    <div class="trust-item">
+      <i class="fa-solid fa-headset"></i>
+      <div class="trust-item-text">
+        <strong>CS 24 Jam</strong>
+        <span>Siap membantu kapan saja</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Lumière</div>
+        <p class="footer-desc">Menghadirkan koleksi premium dengan sentuhan editorial untuk mereka yang menghargai keindahan dalam kesederhanaan.</p>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+          <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Belanja</h4>
+        <ul>
+          <li><a href="#">Semua Produk</a></li>
+          <li><a href="#">Fashion</a></li>
+          <li><a href="#">Aksesoris</a></li>
+          <li><a href="#">Lifestyle</a></li>
+          <li><a href="#">Flash Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Bantuan</h4>
+        <ul>
+          <li><a href="#">Cara Pemesanan</a></li>
+          <li><a href="#">Pengiriman</a></li>
+          <li><a href="#">Pengembalian</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Hubungi Kami</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Perusahaan</h4>
+        <ul>
+          <li><a href="#">Tentang Lumière</a></li>
+          <li><a href="#">Karir</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Kebijakan Privasi</a></li>
+          <li><a href="#">Syarat & Ketentuan</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Lumière. Hak cipta dilindungi.</span>
+      <span>Dibuat dengan penuh cinta di Indonesia</span>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h3>Keranjang Belanja</h3>
+    <button class="drawer-close" onclick="closeCart()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-footer" id="drawerFooter" style="display:none">
+    <div class="cart-total-row">
+      <span>Total</span>
+      <strong id="cartTotal"></strong>
+    </div>
+    <button class="btn-checkout" onclick="goCheckout()">Lanjut ke Pembayaran</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="../javascript/lumiere-home.js"></script>
+</body>
+</html>

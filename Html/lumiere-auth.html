@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — LUMIÈRE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/lumiere-auth.css">
+</head>
+<body>
+
+<!-- Background -->
+<div class="bg-layer" id="bg"></div>
+
+<a href="lumiere-home.html" class="back-home">← Kembali ke Lumière</a>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<!-- Page -->
+<div class="page">
+  <div class="card-stack">
+    <div class="card">
+
+      <!-- Logo -->
+      <div class="logo">
+        <div class="logo-wordmark">Lumière</div>
+        <div class="logo-rule">
+          <div class="logo-rule-line"></div>
+          <span class="logo-sub">L'Art de la Mode</span>
+          <div class="logo-rule-line right"></div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" id="tab-login" type="button" onclick="switchTab('login')">Masuk</button>
+        <button class="tab" id="tab-register" type="button" onclick="switchTab('register')">Daftar</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div class="form active" id="form-login">
+        <div class="form-heading">
+          <h2>Selamat Datang</h2>
+          <p>Masuk ke akun Lumière Anda untuk pengalaman belanja eksklusif.</p>
+        </div>
+
+        <form id="login-form-el" novalidate>
+          <div class="field">
+            <label class="field-label">Alamat Email</label>
+            <input type="email" id="login-email" name="email" placeholder="nama@email.com" autocomplete="email">
+          </div>
+
+          <div class="field">
+            <label class="field-label">Password</label>
+            <div class="field-wrap">
+              <input type="password" id="login-pass" name="password" placeholder="••••••••" autocomplete="current-password">
+              <button class="eye-btn" type="button" onclick="togglePass('login-pass',this)">👁</button>
+            </div>
+          </div>
+
+          <div class="extras">
+            <label class="remember-label">
+              <input type="checkbox"> Ingat saya
+            </label>
+            <button class="forgot-link" type="button" onclick="showToast('Fitur segera hadir ✨')">Lupa Password?</button>
+          </div>
+
+          <button class="btn-primary" type="submit">Masuk ke Akun</button>
+        </form>
+
+        <div class="divider">atau masuk dengan</div>
+        <div class="social">
+          <button class="social-btn" type="button" onclick="showToast('Fitur segera hadir ✨')"><span class="g-dot">G</span> Google</button>
+          <button class="social-btn" type="button" onclick="showToast('Fitur segera hadir ✨')">🍎 Apple</button>
+        </div>
+
+        <p class="switch-link">Belum punya akun? <a onclick="switchTab('register')">Daftar sekarang</a></p>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div class="form" id="form-register">
+        <div class="form-heading">
+          <h2>Buat Akun</h2>
+          <p>Bergabunglah dengan komunitas Lumière dan nikmati akses eksklusif.</p>
+        </div>
+
+        <form id="register-form-el" novalidate>
+          <div class="field field-row">
+            <div>
+              <label class="field-label">Nama Depan</label>
+              <input type="text" id="reg-firstname" name="nama_depan" placeholder="Sari" autocomplete="given-name">
+            </div>
+            <div>
+              <label class="field-label">Nama Belakang</label>
+              <input type="text" id="reg-lastname" name="nama_belakang" placeholder="Dewi" autocomplete="family-name">
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Alamat Email</label>
+            <input type="email" id="reg-email" name="email" placeholder="nama@email.com" autocomplete="email">
+          </div>
+
+          <div class="field">
+            <label class="field-label">Nomor Telepon</label>
+            <input type="tel" id="reg-phone" name="no_telp" placeholder="+62 812 3456 7890" autocomplete="tel">
+          </div>
+
+          <div class="field">
+            <label class="field-label">Password</label>
+            <div class="field-wrap">
+              <input type="password" id="reg-pass" name="password" placeholder="Minimal 8 karakter" autocomplete="new-password">
+              <button class="eye-btn" type="button" onclick="togglePass('reg-pass',this)">👁</button>
+            </div>
+            <ul class="password-rules" id="password-rules">
+              <li class="password-rule" data-rule="length">Minimal 8 karakter</li>
+              <li class="password-rule" data-rule="uppercase">Minimal 1 huruf kapital</li>
+              <li class="password-rule" data-rule="number">Minimal 1 angka</li>
+            </ul>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Konfirmasi Password</label>
+            <div class="field-wrap">
+              <input type="password" id="reg-pass2" placeholder="Ulangi password" autocomplete="new-password">
+              <button class="eye-btn" type="button" onclick="togglePass('reg-pass2',this)">👁</button>
+            </div>
+          </div>
+
+          <div class="checkbox-row">
+            <input type="checkbox" id="agree">
+            <label for="agree">Saya setuju dengan <a>Syarat &amp; Ketentuan</a> dan <a>Kebijakan Privasi</a> Lumière</label>
+          </div>
+
+          <div class="checkbox-row">
+            <input type="checkbox" id="promo" name="promo_email">
+            <label for="promo">Kirimkan info koleksi &amp; promo terbaru ke email saya</label>
+          </div>
+
+          <button class="btn-primary" type="submit" id="register-btn" disabled>Buat Akun Lumière</button>
+        </form>
+
+        <p class="switch-link">Sudah punya akun? <a onclick="switchTab('login')">Masuk di sini</a></p>
+      </div>
+
+    </div><!-- /card -->
+  </div><!-- /card-stack -->
+</div><!-- /page -->
+
+<script src="../javascript/lumiere-auth.js"></script>
+</body>
+</html>

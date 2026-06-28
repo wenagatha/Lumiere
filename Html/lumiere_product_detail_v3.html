@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Produk — Lumière</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../css/lumiere-product-detail.css">
+</head>
+<body>
+
+<!-- WADAH BACKGROUND & PARTIKEL EMAS -->
+<div id="bg" class="bg-layer"></div>
+
+<div class="announce-bar">Gratis ongkir untuk pembelian di atas Rp 500.000 &nbsp;·&nbsp; Koleksi baru setiap Jumat</div>
+
+<header>
+  <div class="nav-container">
+    <a href="lumiere-home.html" class="brand">Lumière</a>
+    <ul class="nav-links">
+      <li><a href="#">Koleksi</a></li>
+      <li><a href="#">Kategori</a></li>
+      <li><a href="#">Editorial</a></li>
+      <li><a href="#">Tentang</a></li>
+    </ul>
+    <div class="nav-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Cari produk...">
+    </div>
+    <div class="nav-actions">
+      <button class="nav-icon-btn"><i class="fa-regular fa-heart"></i></button>
+      <button class="nav-icon-btn"><i class="fa-regular fa-user"></i></button>
+      <a href="lumiere-cart (1).html" class="nav-icon-btn" style="display:flex;align-items:center;justify-content:center;">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="cart-badge" id="cartBadge" style="display:none">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="breadcrumb">
+  <a href="#">Home</a>
+  <i class="fa-solid fa-chevron-right"></i>
+  <a href="#">Fashion</a>
+  <i class="fa-solid fa-chevron-right"></i>
+  <span style="color:var(--white)">Oversized Cotton Blazer</span>
+</div>
+
+<div class="product-top">
+
+  <!-- GALLERY -->
+  <div>
+    <div class="main-img">
+      <img id="mainImg" src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=700&q=80" alt="Produk">
+    </div>
+    <div class="thumb-row">
+      <div class="thumb active" onclick="switchImg(this,'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=300&q=80')">
+        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=300&q=80" alt="">
+      </div>
+      <div class="thumb" onclick="switchImg(this,'https://images.unsplash.com/photo-1592878904946-b3cd8ae243d0?w=300&q=80')">
+        <img src="https://images.unsplash.com/photo-1592878904946-b3cd8ae243d0?w=300&q=80" alt="">
+      </div>
+      <div class="thumb" onclick="switchImg(this,'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=300&q=80')">
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=300&q=80" alt="">
+      </div>
+      <div class="thumb" onclick="switchImg(this,'https://images.unsplash.com/photo-1554412933-514a83d2f3c8?w=300&q=80')">
+        <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?w=300&q=80" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div>
+    <div class="prod-badge-row">
+      <span class="pbadge pbadge-cat">Fashion</span>
+      <span class="pbadge pbadge-sale">Sale</span>
+    </div>
+    <h1 class="prod-title">Oversized Cotton <em>Blazer</em></h1>
+    <div class="rating-row">
+      <div class="stars-wrap">
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star off"></i>
+      </div>
+      <span class="rating-num">4.0 · 128 ulasan</span>
+      <span class="sold-badge">85 terjual</span>
+    </div>
+    <div class="price-block">
+      <div class="price-main">Rp 1.200.000</div>
+      <div class="price-old-row">
+        <span class="price-old">Rp 1.500.000</span>
+        <span class="price-disc">Hemat 20%</span>
+      </div>
+    </div>
+
+    <div class="variant-group">
+      <div class="section-label">Ukuran</div>
+      <div class="variant-opts">
+        <button class="vopt disabled">XS</button>
+        <button class="vopt" onclick="selectOpt(this,'size')">S</button>
+        <button class="vopt active" onclick="selectOpt(this,'size')">M</button>
+        <button class="vopt" onclick="selectOpt(this,'size')">L</button>
+        <button class="vopt" onclick="selectOpt(this,'size')">XL</button>
+        <button class="vopt" onclick="selectOpt(this,'size')">XXL</button>
+      </div>
+    </div>
+
+    <div class="variant-group">
+      <div class="section-label">Warna</div>
+      <div class="color-opts">
+        <div class="copt active" style="background:#C4956A" onclick="selectColor(this)" title="Camel"></div>
+        <div class="copt" style="background:#2C2C2A" onclick="selectColor(this)" title="Hitam"></div>
+        <div class="copt" style="background:#E8E0D5;border:1.5px solid #C0B8AE" onclick="selectColor(this)" title="Krem"></div>
+        <div class="copt" style="background:#8B7355" onclick="selectColor(this)" title="Coklat"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUY BOX -->
+  <div class="buy-box">
+    <div class="seller-row">
+      <div class="seller-avatar">L</div>
+      <div>
+        <div class="seller-name">Lumière Official</div>
+        <div class="seller-loc"><i class="fa-solid fa-location-dot" style="font-size:10px;margin-right:3px;color:var(--gold)"></i>Bandung</div>
+      </div>
+      <button class="seller-follow">Ikuti</button>
+    </div>
+    <div class="stock-info">
+      <span class="stock-label">Stok tersedia</span>
+      <span class="stock-num">42 pcs</span>
+    </div>
+    <div class="stock-bar"><div class="stock-fill"></div></div>
+    <div class="qty-block">
+      <div class="section-label">Jumlah</div>
+      <div class="qty-ctrl">
+        <button class="qty-btn" onclick="changeQty(-1)"><i class="fa-solid fa-minus"></i></button>
+        <span class="qty-num" id="qtyNum">1</span>
+        <button class="qty-btn" onclick="changeQty(1)"><i class="fa-solid fa-plus"></i></button>
+      </div>
+    </div>
+    <div class="subtotal-row">
+      <span>Subtotal</span>
+      <span class="subtotal-val" id="subtotalVal">Rp 1.200.000</span>
+    </div>
+    <button class="btn-cart" onclick="addCart()">
+      <i class="fa-regular fa-bag-shopping"></i> Tambah ke Keranjang
+    </button>
+    <button class="btn-buy">Beli Langsung</button>
+    <div class="action-row">
+      <button class="action-btn" onclick="toggleWish(this)">
+        <i class="fa-regular fa-heart" id="wishIcon"></i> Wishlist
+      </button>
+      <button class="action-btn">
+        <i class="fa-regular fa-share-from-square"></i> Bagikan
+      </button>
+    </div>
+    <div class="guarantee-row">
+      <div class="guarantee-item"><i class="fa-solid fa-shield-halved"></i> Pembayaran aman & terenkripsi</div>
+      <div class="guarantee-item"><i class="fa-solid fa-rotate-left"></i> Retur mudah dalam 7 hari</div>
+      <div class="guarantee-item"><i class="fa-solid fa-truck-fast"></i> Gratis ongkir min. Rp 500.000</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM SECTIONS -->
+<div class="bottom-sections">
+
+  <div class="section-card">
+    <div class="section-card-title">Spesifikasi Produk</div>
+    <div class="spec-table">
+      <div class="spec-row"><span class="spec-key">Kategori</span><span class="spec-val" style="color:var(--gold);font-weight:500">Fashion · Outer · Blazer</span></div>
+      <div class="spec-row"><span class="spec-key">Merek</span><span class="spec-val" style="color:var(--gold);font-weight:500">Lumière</span></div>
+      <div class="spec-row"><span class="spec-key">Kondisi</span><span class="spec-val">Baru</span></div>
+      <div class="spec-row"><span class="spec-key">Material</span><span class="spec-val">100% Premium Cotton</span></div>
+      <div class="spec-row"><span class="spec-key">Berat Satuan</span><span class="spec-val">380 – 420 gram</span></div>
+      <div class="spec-row"><span class="spec-key">Min. Pembelian</span><span class="spec-val">1 Pcs</span></div>
+      <div class="spec-row"><span class="spec-key">Perawatan</span><span class="spec-val">Cuci tangan / Dry Clean</span></div>
+      <div class="spec-row"><span class="spec-key">Negara Asal</span><span class="spec-val">Indonesia</span></div>
+      <div class="spec-row"><span class="spec-key">Dikirim Dari</span><span class="spec-val">Bandung, Jawa Barat</span></div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-card-title">Deskripsi Produk</div>
+    <p class="desc-text">Oversized Cotton Blazer hadir sebagai statement piece yang sempurna untuk tampilan kasual maupun semi-formal. Dibuat dari bahan katun premium berkualitas tinggi yang terasa ringan dan breathable sepanjang hari.
+
+Potongan oversized yang modern memberikan kesan anggun tanpa mengorbankan kenyamanan. Detail jahitan rapi dan liner interior lembut menjadikan blazer ini pilihan ideal untuk berbagai kesempatan — dari meeting hingga jalan santai di akhir pekan.
+
+<strong style="color:var(--white);font-size:13px">Keunggulan Produk:</strong>
+· Bahan katun premium, lembut dan adem di kulit
+· Potongan oversized cocok untuk berbagai bentuk tubuh
+· Tersedia dalam 4 pilihan warna netral yang mudah dipadukan
+· Jahitan presisi dengan finishing premium
+· Cocok untuk berbagai kesempatan, dari formal hingga kasual</p>
+  </div>
+
+  <div class="section-card">
+    <div class="section-card-title">Penilaian Produk</div>
+    <div class="review-summary" id="review-summary">
+      <div class="review-score-big">
+        <div class="score-num" id="score-num">-</div>
+        <div class="score-stars" id="score-stars"></div>
+        <div class="score-label" id="score-label">Memuat ulasan...</div>
+      </div>
+      <div class="review-bars" id="review-bars"></div>
+    </div>
+    <div class="review-filters" id="review-filters">
+      <button class="rfil active" onclick="filterReview('semua', this)">Semua</button>
+    </div>
+    <div class="review-list" id="review-list">
+      <p style="font-size:13px;color:var(--ink-soft);padding:1rem 0;">Memuat ulasan...</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="../javascript/lumiere-product-detail.js"></script>
+<script>
+async function loadDetail() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (!id) return;
+  const res = await fetch('../backand/produk-user.php?action=detail&id=' + id);
+  const data = await res.json();
+  if (data.status !== 'sukses') return;
+  const p = data.data;
+  document.querySelector('.prod-title').innerHTML = p.nama;
+  document.querySelector('.breadcrumb span:last-child').textContent = p.nama;
+  document.querySelector('.price-main').textContent = 'Rp ' + parseInt(p.harga).toLocaleString('id-ID');
+  if (p.harga_lama) {
+    document.querySelector('.price-old').textContent = 'Rp ' + parseInt(p.harga_lama).toLocaleString('id-ID');
+    const disc = Math.round((1 - p.harga / p.harga_lama) * 100);
+    document.querySelector('.price-disc').textContent = 'Hemat ' + disc + '%';
+  }
+  if (p.gambar) {
+    const imgUrl = '../uploads/produk/' + p.gambar;
+    document.getElementById('mainImg').src = imgUrl;
+    const thumbs = document.querySelectorAll('.thumb');
+    thumbs[0].querySelector('img').src = imgUrl;
+    thumbs[0].onclick = () => switchImg(thumbs[0], imgUrl);
+  }
+  const thumbs = document.querySelectorAll('.thumb');
+  thumbs[1].style.display = 'none';
+  thumbs[2].style.display = 'none';
+  thumbs[3].style.display = 'none';
+  document.querySelector('.pbadge-cat').textContent = p.kategori;
+  document.querySelectorAll('.spec-val')[1].textContent = p.kondisi || '-';
+  document.querySelectorAll('.spec-val')[2].textContent = p.material || '-';
+  document.querySelectorAll('.spec-val')[3].textContent = (p.berat || '-') + ' gram';
+  document.querySelectorAll('.spec-val')[5].textContent = p.perawatan || '-';
+  document.querySelector('.desc-text').textContent = p.deskripsi || '-';
+  document.querySelector('.stock-num').textContent = p.stok + ' pcs';
+  if (p.ukuran && p.ukuran.length) {
+    const opts = document.querySelector('.variant-opts');
+    opts.innerHTML = p.ukuran.map(u =>
+      `<button class="vopt" onclick="selectOpt(this,'size')">${u}</button>`
+    ).join('');
+  }
+  if (p.warna && p.warna.length) {
+    const colorOpts = document.querySelector('.color-opts');
+    colorOpts.innerHTML = p.warna.map(w =>
+      `<div class="copt" style="background:${w}" onclick="selectColor(this)"></div>`
+    ).join('');
+  }
+  window.currentPrice = parseInt(p.harga);
+  window.currentNama = p.nama;
+  window.currentStok = parseInt(p.stok);
+  window.currentIdProduk = p.id;
+  document.getElementById('subtotalVal').textContent = 'Rp ' + parseInt(p.harga).toLocaleString('id-ID');
+  loadUlasan(p.id);
+  if (parseInt(p.stok) === 0) {
+    document.querySelector('.btn-cart').disabled = true;
+    document.querySelector('.btn-cart').textContent = 'Stok Habis';
+    document.querySelector('.btn-cart').style.opacity = '0.5';
+    document.querySelector('.btn-cart').style.cursor = 'not-allowed';
+    document.querySelector('.btn-buy').disabled = true;
+    document.querySelector('.btn-buy').textContent = 'Stok Habis';
+    document.querySelector('.btn-buy').style.opacity = '0.5';
+    document.querySelector('.btn-buy').style.cursor = 'not-allowed';
+  }
+}
+loadDetail();
+
+function initAuth() {
+  const user = JSON.parse(localStorage.getItem('lum_user') || 'null');
+  if (user) {
+    const userBtn = document.querySelector('.nav-actions .nav-icon-btn:nth-child(2)');
+    if (userBtn) {
+      if (user.foto) {
+        userBtn.innerHTML = `<img src="../uploads/user/${user.foto}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0;"><span style="font-size:12px;font-weight:500;color:var(--white);margin-left:8px;">${user.nama}</span>`;
+      } else {
+        userBtn.innerHTML = `<div style="width:28px;height:28px;border-radius:50%;background:#D4A74A;color:#FFFFFF;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${user.nama.charAt(0).toUpperCase()}</div><span style="font-size:12px;font-weight:500;color:var(--white);margin-left:8px;">${user.nama}</span>`;
+      }
+      userBtn.style.display = 'flex';
+      userBtn.style.alignItems = 'center';
+      userBtn.style.textDecoration = 'none';
+      userBtn.style.marginLeft = '16px';
+      userBtn.style.marginRight = '16px';
+    }
+  }
+}
+initAuth();
+</script>
+</body>
+</html>

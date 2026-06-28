@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumière — Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <h1>LUMIÈRE</h1>
+    <span>Admin Panel</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-label">Menu</div>
+
+    <div class="nav-item active" onclick="goTo('dashboard', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </div>
+
+    <div class="nav-item" onclick="goTo('barang', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+      Manajemen Barang
+    </div>
+
+    <div class="nav-item" onclick="goTo('order', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Manajemen Order
+      <span id="order-badge" style="margin-left:auto;background:var(--red);color:#fff;font-size:10px;padding:1px 7px;border-radius:10px;display:none"></span>
+    </div>
+
+    <div class="nav-item" onclick="goTo('customer', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      Akun Customer
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <button class="logout-btn" onclick="confirmLogout()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Logout
+    </button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-title" id="topbar-title">Dashboard</div>
+      <div class="topbar-divider"></div>
+      <div class="topbar-date" id="topbar-date"></div>
+    </div>
+    <div class="topbar-admin">
+      <div class="topbar-admin-info">
+        <span class="topbar-admin-name">Admin</span>
+        <span class="topbar-admin-role">Super Admin</span>
+      </div>
+      <div class="avatar">A</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ── PAGE: DASHBOARD ── -->
+    <div class="page active" id="page-dashboard">
+      <div class="section-header">
+        <h2>Selamat datang kembali</h2>
+        <p>Ringkasan aktivitas toko hari ini</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="var(--gold)" stroke="none"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/></svg>
+          <div class="stat-label">Total Produk</div>
+          <div class="stat-value" id="stat-produk">—</div>
+          <div class="stat-sub">↑ 3 produk baru bulan ini</div>
+          <div class="stat-bar-track"><div class="stat-bar-fill" id="bar-produk" style="width:0%"></div></div>
+        </div>
+        <div class="stat-card">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="var(--gold)"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          <div class="stat-label">Total Customer</div>
+          <div class="stat-value" id="stat-customer">—</div>
+          <div class="stat-sub">↑ 12 daftar minggu ini</div>
+          <div class="stat-bar-track"><div class="stat-bar-fill" id="bar-customer" style="width:0%"></div></div>
+        </div>
+        <div class="stat-card">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="var(--gold)"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <div class="stat-label">Total Order</div>
+          <div class="stat-value" id="stat-order">—</div>
+          <div class="stat-sub" id="stat-order-sub">— menunggu konfirmasi</div>
+          <div class="stat-bar-track"><div class="stat-bar-fill" id="bar-order" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <!-- Recent orders table -->
+      <div class="table-card">
+        <div class="table-toolbar">
+          <span style="font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--gray)">Order Terbaru</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID Order</th>
+              <th>Customer</th>
+              <th>Produk</th>
+              <th>Total</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="tabel-dashboard-order">
+            <tr><td colspan="5" style="text-align:center;color:var(--gray);padding:24px;font-size:12px">Memuat data order...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Charts -->
+      <div class="chart-grid">
+        <!-- Bar chart penjualan -->
+        <div class="chart-card">
+          <div class="chart-title">Penjualan 6 Bulan Terakhir (Rp)</div>
+          <div class="bar-chart" id="bar-chart"></div>
+          <div style="display:flex;gap:10px;margin-top:2px" id="bar-labels"></div>
+        </div>
+        <!-- Donut chart status order -->
+        <div class="chart-card">
+          <div class="chart-title">Status Order</div>
+          <div class="donut-wrap">
+            <svg class="donut-svg" width="120" height="120" viewBox="0 0 120 120" id="donut-svg"></svg>
+            <div class="donut-legend" id="donut-legend"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PAGE: BARANG ── -->
+    <div class="page" id="page-barang">
+      <div class="section-header">
+        <h2>Manajemen Barang</h2>
+        <p>Kelola produk, stok, dan informasi barang</p>
+      </div>
+
+      <div class="table-card">
+        <div class="table-toolbar">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="text" placeholder="Cari barang..." id="search-barang" oninput="applyFilter()">
+          </div>
+          <button class="btn btn-primary" onclick="openModal('modal-tambah')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Tambah Barang
+          </button>
+        </div>
+        <div style="padding:12px 24px;border-bottom:1px solid var(--cream-dark);display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-right:4px">Kategori</span>
+          <button class="filter-pill active" onclick="setKategori('', this)">Semua</button>
+          <button class="filter-pill" onclick="setKategori('Tas', this)">Tas</button>
+          <button class="filter-pill" onclick="setKategori('Fashion', this)">Fashion</button>
+          <button class="filter-pill" onclick="setKategori('Aksesoris', this)">Aksesoris</button>
+          <button class="filter-pill" onclick="setKategori('Lifestyle', this)">Lifestyle</button>
+          <button class="filter-pill" onclick="setKategori('Sepatu', this)">Sepatu</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Nama Barang</th>
+              <th>Kategori</th>
+              <th>Harga</th>
+              <th>Stok</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tabel-barang">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── PAGE: CUSTOMER ── -->
+    <div class="page" id="page-customer">
+      <div class="section-header">
+        <h2>Akun Customer</h2>
+        <p>Kelola dan pantau akun pelanggan</p>
+      </div>
+
+      <div class="table-card">
+        <div class="table-toolbar">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="text" placeholder="Cari customer..." id="search-customer" oninput="filterCustomer(this.value)">
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Email</th>
+              <th>Terdaftar</th>
+              <th>Total Order</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tabel-customer">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── PAGE: ORDER ── -->
+    <div class="page" id="page-order">
+      <div class="section-header">
+        <h2>Manajemen Order</h2>
+        <p>Pantau dan proses semua pesanan masuk</p>
+      </div>
+
+      <div class="table-card">
+        <div class="table-toolbar">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="text" placeholder="Cari ID order atau nama customer..." id="search-order" oninput="applyFilterOrder()">
+          </div>
+        </div>
+        <div style="padding:12px 24px;border-bottom:1px solid var(--cream-dark);display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <span style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-right:4px">Status</span>
+          <button class="filter-pill active" onclick="setFilterOrder('', this)">Semua</button>
+          <button class="filter-pill" onclick="setFilterOrder('Pending', this)">Pending</button>
+          <button class="filter-pill" onclick="setFilterOrder('Diproses', this)">Diproses</button>
+          <button class="filter-pill" onclick="setFilterOrder('Dikirim', this)">Dikirim</button>
+          <button class="filter-pill" onclick="setFilterOrder('Selesai', this)">Selesai</button>
+          <button class="filter-pill" onclick="setFilterOrder('Dibatalkan', this)">Dibatalkan</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID Order</th>
+              <th>Customer</th>
+              <th>Produk</th>
+              <th>Total</th>
+              <th>Tanggal</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tabel-order"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</main>
+
+<!-- ── MODAL TAMBAH / EDIT BARANG ── -->
+<div class="modal-overlay" id="modal-tambah" onclick="closeModalOutside(event,'modal-tambah')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-barang-title">Tambah Barang</div>
+      <div class="modal-sub" id="modal-barang-sub">Isi detail produk baru</div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="modal-tabs">
+      <button class="modal-tab active" onclick="switchTab('tab-dasar', this)">Info Dasar</button>
+      <button class="modal-tab" onclick="switchTab('tab-spek', this)">Spesifikasi</button>
+      <button class="modal-tab" onclick="switchTab('tab-media', this)">Media & Deskripsi</button>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- TAB 1: INFO DASAR -->
+      <div class="tab-pane active" id="tab-dasar">
+        <div class="form-group" style="margin-top:4px">
+          <label class="form-label">Nama Barang</label>
+          <input class="form-input" id="input-nama" type="text" placeholder="cth: Minimalist Totebag">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Harga (Rp)</label>
+            <input class="form-input" id="input-harga" type="number" placeholder="850000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Stok</label>
+            <input class="form-input" id="input-stok" type="number" placeholder="10">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Kategori</label>
+          <select class="form-input" id="input-kategori">
+            <option value="">Pilih Kategori</option>
+            <option>Tas</option>
+            <option>Fashion</option>
+            <option>Aksesoris</option>
+            <option>Lifestyle</option>
+            <option>Sepatu</option>
+          </select>
+        </div>
+
+        <!-- UKURAN -->
+        <div class="section-divider" style="margin-top:20px">Ukuran Tersedia</div>
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" class="size-check" id="sz-xs" value="XS"><label class="size-label" for="sz-xs">XS</label>
+            <input type="checkbox" class="size-check" id="sz-s" value="S"><label class="size-label" for="sz-s">S</label>
+            <input type="checkbox" class="size-check" id="sz-m" value="M"><label class="size-label" for="sz-m">M</label>
+            <input type="checkbox" class="size-check" id="sz-l" value="L"><label class="size-label" for="sz-l">L</label>
+            <input type="checkbox" class="size-check" id="sz-xl" value="XL"><label class="size-label" for="sz-xl">XL</label>
+            <input type="checkbox" class="size-check" id="sz-xxl" value="XXL"><label class="size-label" for="sz-xxl">XXL</label>
+          </div>
+        </div>
+
+        <!-- WARNA -->
+        <div class="section-divider">Warna Tersedia</div>
+        <div class="form-group">
+          <div class="warna-group" id="warna-group">
+            <input type="checkbox" class="warna-check" id="wc-1" value="#C4916A"><label class="warna-dot" for="wc-1" style="background:#C4916A" title="Terracotta"></label>
+            <input type="checkbox" class="warna-check" id="wc-2" value="#2C2C2C"><label class="warna-dot" for="wc-2" style="background:#2C2C2C" title="Hitam"></label>
+            <input type="checkbox" class="warna-check" id="wc-3" value="#E8E0D5"><label class="warna-dot" for="wc-3" style="background:#E8E0D5;border:1px solid #ccc" title="Krem"></label>
+            <input type="checkbox" class="warna-check" id="wc-4" value="#7B8B6F"><label class="warna-dot" for="wc-4" style="background:#7B8B6F" title="Olive"></label>
+            <input type="checkbox" class="warna-check" id="wc-5" value="#FFFFFF"><label class="warna-dot" for="wc-5" style="background:#fff;border:1px solid #ccc" title="Putih"></label>
+            <input type="checkbox" class="warna-check" id="wc-6" value="#3B5998"><label class="warna-dot" for="wc-6" style="background:#3B5998" title="Navy"></label>
+            <button type="button" class="warna-tambah" onclick="tambahWarna()" title="Tambah warna custom">+</button>
+          </div>
+          <input type="color" id="color-picker" style="display:none;width:0;height:0;opacity:0" onchange="addCustomWarna(this.value)">
+        </div>
+      </div>
+
+      <!-- TAB 2: SPESIFIKASI -->
+      <div class="tab-pane" id="tab-spek">
+        <div class="form-row" style="margin-top:4px">
+          <div class="form-group">
+            <label class="form-label">Material</label>
+            <input class="form-input" id="input-material" type="text" placeholder="cth: 100% Premium Cotton">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Kondisi</label>
+            <select class="form-input" id="input-kondisi">
+              <option value="">Pilih kondisi</option>
+              <option>Baru</option>
+              <option>Second</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Berat (gram)</label>
+            <input class="form-input" id="input-berat" type="text" placeholder="cth: 380 – 420">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Perawatan</label>
+            <input class="form-input" id="input-perawatan" type="text" placeholder="cth: Cuci tangan / Dry Clean">
+          </div>
+        </div>
+        <div style="margin-top:20px;padding:16px;background:var(--cream);border:1px solid var(--cream-dark)">
+          <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-bottom:8px">Tips</div>
+          <div style="font-size:12px;color:var(--gray);line-height:1.7">Isi spesifikasi selengkap mungkin untuk meningkatkan kepercayaan customer. Material dan perawatan adalah info yang paling sering dicari sebelum beli.</div>
+        </div>
+      </div>
+
+      <!-- TAB 3: MEDIA & DESKRIPSI -->
+      <div class="tab-pane" id="tab-media">
+        <div class="section-divider" style="margin-top:4px">Foto Produk</div>
+        <div class="upload-area" id="upload-area">
+          <input type="file" id="input-foto" accept="image/*" multiple onchange="handleFoto(this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <p>Klik atau drag foto ke sini</p>
+          <span>PNG, JPG hingga 5MB · Bisa lebih dari 1 foto</span>
+        </div>
+        <div class="preview-grid" id="preview-grid"></div>
+
+        <div class="section-divider">Deskripsi Produk</div>
+        <div class="form-group">
+          <textarea class="form-input" id="input-deskripsi" rows="6" placeholder="Tulis deskripsi produk di sini..." style="resize:vertical;line-height:1.6"></textarea>
+        </div>
+      </div>
+
+    </div><!-- /modal-body -->
+
+    <div class="modal-actions" style="padding:20px 36px;border-top:1px solid var(--cream-dark);flex-shrink:0">
+      <button class="btn btn-outline" onclick="closeModal('modal-tambah')">Batal</button>
+      <button class="btn btn-primary" onclick="simpanBarang()">Simpan Produk</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL DETAIL ORDER ── -->
+<div class="modal-overlay" id="modal-order" onclick="closeModalOutside(event,'modal-order')">
+  <div class="modal" style="width:560px">
+    <div class="modal-header" style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div>
+        <div class="modal-title" id="detail-order-id">Detail Order</div>
+        <div class="modal-sub" id="detail-order-tgl"></div>
+      </div>
+      <span id="detail-order-badge" class="badge" style="margin-top:4px"></span>
+    </div>
+    <div class="modal-body">
+
+      <div class="section-divider">Info Customer</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:4px">
+        <div>
+          <div class="form-label">Nama</div>
+          <div id="detail-nama" style="font-size:13px;font-weight:500"></div>
+        </div>
+        <div>
+          <div class="form-label">No. HP</div>
+          <div id="detail-hp" style="font-size:13px"></div>
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <div class="form-label">Alamat Pengiriman</div>
+        <div id="detail-alamat" style="font-size:13px;line-height:1.6"></div>
+      </div>
+
+      <div class="section-divider">Produk Dipesan</div>
+      <table style="width:100%">
+        <thead>
+          <tr>
+            <th style="padding:8px 0;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);border-bottom:1px solid var(--cream-dark)">Produk</th>
+            <th style="padding:8px 0;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);border-bottom:1px solid var(--cream-dark);text-align:center">Qty</th>
+            <th style="padding:8px 0;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);border-bottom:1px solid var(--cream-dark);text-align:right">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="detail-items"></tbody>
+      </table>
+
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--cream-dark)">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div class="form-label">Metode Pembayaran</div>
+            <div id="detail-metode" style="font-size:13px"></div>
+          </div>
+          <div style="text-align:right">
+            <div class="form-label">Total Pembayaran</div>
+            <div id="detail-total" style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--dark)"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider">Update Status</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap" id="status-btns"></div>
+
+    </div>
+    <div class="modal-actions" style="padding:20px 36px;border-top:1px solid var(--cream-dark);flex-shrink:0">
+      <button class="btn btn-outline" onclick="closeModal('modal-order')">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── CONFIRM DIALOG ── -->
+<div class="modal-overlay" id="modal-confirm" onclick="closeModalOutside(event,'modal-confirm')">
+  <div class="confirm-dialog">
+    <h3 id="confirm-title">Hapus Barang?</h3>
+    <p id="confirm-msg">Tindakan ini tidak dapat dibatalkan.</p>
+    <div class="confirm-actions">
+      <button class="btn btn-outline" onclick="closeModal('modal-confirm')">Batal</button>
+      <button class="btn btn-primary" id="confirm-ok" style="background:var(--red)">Hapus</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

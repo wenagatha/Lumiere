@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keranjang — Lumière</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="../css/lumiere-cart.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="lumiere-home.html" class="logo">Lumière</a>
+      
+      <nav class="nav-links">
+        <span>Koleksi</span>
+        <span>Kategori</span>
+        <span>Editorial</span>
+      </nav>
+      
+      <div class="nav-icons">
+        <i class="ti ti-search" aria-hidden="true"></i>
+        <i class="ti ti-heart" aria-hidden="true"></i>
+        
+        <div class="user-menu-wrap" style="position: relative;">
+          <button type="button" class="nav-icon-btn" id="userBtn" onclick="toggleDropdown()" style="background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+            <i class="ti ti-user" id="userIcon"></i>
+          </button>
+          
+          <div id="userDropdown" style="display: none; position: absolute; right: 0; top: 40px; background: var(--ink-mid); border: 0.5px solid var(--border-soft); border-radius: var(--radius-sm); min-width: 180px; padding: 8px 0; z-index: 999; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <div id="guestMenu">
+              <a href="lumiere-auth.html?tab=login" style="display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-size: 13px; color: var(--white); text-decoration: none;">
+                <i class="ti ti-login"></i> Masuk
+              </a>
+              <a href="lumiere-auth.html?tab=register" style="display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-size: 13px; color: var(--white); text-decoration: none;">
+                <i class="ti ti-user-plus"></i> Daftar
+              </a>
+            </div>
+            
+            <div id="loggedMenu" style="display: none;">
+              <a href="lumiere-profile.html" style="display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-size: 13px; color: var(--white); text-decoration: none;">
+                <i class="ti ti-user"></i> Profil Saya
+              </a>
+              <a href="#" style="display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-size: 13px; color: var(--white); text-decoration: none;">
+                <i class="ti ti-bag"></i> Pesanan
+              </a>
+              <a href="#" style="display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-size: 13px; color: var(--white); text-decoration: none;">
+                <i class="ti ti-heart"></i> Wishlist
+              </a>
+              <div style="height: 0.5px; background: var(--border-soft); margin: 4px 0;"></div>
+              <button type="button" onclick="logout()" style="display: flex; align-items: center; gap: 10px; padding: 10px 16px; font-size: 13px; color: #E56B44; background: none; border: none; cursor: pointer; width: 100%; font-family: 'DM Sans', sans-serif;">
+                <i class="ti ti-logout"></i> Keluar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cart-icon-wrap">
+          <i class="ti ti-shopping-bag" aria-hidden="true"></i>
+          <div class="cart-badge" id="cartBadge">4</div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <div class="gold-bar"></div>
+
+  <main class="layout">
+
+    <div class="cart-col">
+      <div class="cart-header">
+        <div class="section-label" style="margin-bottom: 0;" id="cartCount">4 item dalam keranjang</div>
+        <button type="button" class="clear-all" onclick="clearAll()">Hapus semua</button>
+      </div>
+
+      <div class="cart-item" id="item-1">
+        <div class="item-img"><i class="ti ti-watch" aria-hidden="true"></i></div>
+        <div class="item-body">
+          <div class="item-cat">Aksesoris</div>
+          <div class="item-name">Ceramic Matte Watch</div>
+          <div class="item-variant">Warna: Abu-abu Matte · Ukuran: M</div>
+          <div class="item-actions">
+            <button type="button" class="wish-link" onclick="moveToWish(1, this)" aria-label="Simpan ke wishlist">
+              <i class="ti ti-heart" style="font-size: 13px;" aria-hidden="true"></i>Simpan ke wishlist
+            </button>
+            <button type="button" class="del-link" onclick="removeItem(1)" aria-label="Hapus item">
+              <i class="ti ti-trash" style="font-size: 13px;" aria-hidden="true"></i>Hapus
+            </button>
+          </div>
+        </div>
+        <div class="item-right">
+          <div style="text-align: right;">
+            <div class="item-orig">Rp 3.200.000</div>
+            <div class="item-price">Rp 2.450.000</div>
+            <div class="item-subtotal" id="sub1">Subtotal: Rp 2.450.000</div>
+          </div>
+          <div class="qty-ctrl">
+            <button type="button" class="qty-btn" onclick="chgQty('q1', 1, -1)" aria-label="Kurangi jumlah">−</button>
+            <input class="qty-num" id="q1" type="text" value="1" readonly aria-label="Jumlah">
+            <button type="button" class="qty-btn" onclick="chgQty('q1', 1, 1)" aria-label="Tambah jumlah">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cart-item" id="item-2">
+        <div class="item-img"><i class="ti ti-shirt" aria-hidden="true"></i></div>
+        <div class="item-body">
+          <div class="item-cat">Fashion</div>
+          <div class="item-name">Oversized Cotton Blazer</div>
+          <div class="item-variant">Warna: Cokelat · Ukuran: M</div>
+          <div class="item-actions">
+            <button type="button" class="wish-link" onclick="moveToWish(2, this)" aria-label="Simpan ke wishlist">
+              <i class="ti ti-heart" style="font-size: 13px;" aria-hidden="true"></i>Simpan ke wishlist
+            </button>
+            <button type="button" class="del-link" onclick="removeItem(2)" aria-label="Hapus item">
+              <i class="ti ti-trash" style="font-size: 13px;" aria-hidden="true"></i>Hapus
+            </button>
+          </div>
+        </div>
+        <div class="item-right">
+          <div style="text-align: right;">
+            <div class="item-orig">Rp 1.500.000</div>
+            <div class="item-price">Rp 1.200.000</div>
+            <div class="item-subtotal" id="sub2">Subtotal: Rp 1.200.000</div>
+          </div>
+          <div class="qty-ctrl">
+            <button type="button" class="qty-btn" onclick="chgQty('q2', 2, -1)" aria-label="Kurangi jumlah">−</button>
+            <input class="qty-num" id="q2" type="text" value="1" readonly aria-label="Jumlah">
+            <button type="button" class="qty-btn" onclick="chgQty('q2', 2, 1)" aria-label="Tambah jumlah">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cart-item" id="item-3">
+        <div class="item-img"><i class="ti ti-shopping-bag" aria-hidden="true"></i></div>
+        <div class="item-body">
+          <div class="item-cat">Tas</div>
+          <div class="item-name">Minimalist Leather Totebag</div>
+          <div class="item-variant">Warna: Krem · One Size</div>
+          <div class="item-actions">
+            <button type="button" class="wish-link" onclick="moveToWish(3, this)" aria-label="Simpan ke wishlist">
+              <i class="ti ti-heart" style="font-size: 13px;" aria-hidden="true"></i>Simpan ke wishlist
+            </button>
+            <button type="button" class="del-link" onclick="removeItem(3)" aria-label="Hapus item">
+              <i class="ti ti-trash" style="font-size: 13px;" aria-hidden="true"></i>Hapus
+            </button>
+          </div>
+        </div>
+        <div class="item-right">
+          <div style="text-align: right;">
+            <div class="item-price">Rp 850.000</div>
+            <div class="item-subtotal" id="sub3">Subtotal: Rp 1.700.000</div>
+          </div>
+          <div class="qty-ctrl">
+            <button type="button" class="qty-btn" onclick="chgQty('q3', 3, -1)" aria-label="Kurangi jumlah">−</button>
+            <input class="qty-num" id="q3" type="text" value="2" readonly aria-label="Jumlah">
+            <button type="button" class="qty-btn" onclick="chgQty('q3', 3, 1)" aria-label="Tambah jumlah">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="empty-state" id="emptyState">
+        <i class="ti ti-shopping-bag" aria-hidden="true"></i>
+        <div class="empty-title">Keranjangmu masih kosong</div>
+        <div class="empty-sub">Temukan koleksi terbaru Lumière dan mulai belanja</div>
+        <a href="index.html" style="font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; padding: 12px 28px; background: var(--gold); color: var(--ink); text-decoration: none; border-radius: var(--radius-sm); font-weight: 600; display: inline-block;">Mulai Belanja →</a>
+      </div>
+
+      <div class="promo-wrap">
+        <div class="section-label">Kode promo</div>
+        <div class="promo-row">
+          <input class="promo-input" id="promoInput" type="text" placeholder="Masukkan kode promo..." autocomplete="off">
+          <button type="button" class="promo-btn" onclick="applyPromo()">Terapkan</button>
+        </div>
+        <div class="promo-applied" id="promoApplied">
+          <span class="promo-tag">
+            <i class="ti ti-discount" style="font-size: 14px;" aria-hidden="true"></i>
+            LUMIERE10 — Diskon 10% diterapkan
+          </span>
+          <button type="button" class="promo-remove" onclick="removePromo()">Hapus</button>
+        </div>
+        <p style="font-size: 11px; color: var(--gray-light); margin-top: 8px;">Coba kode: <strong style="color: var(--gold-light);">LUMIERE10</strong> untuk diskon 10%</p>
+      </div>
+
+      <div class="rec-section">
+        <div class="section-label">Mungkin kamu suka</div>
+        <div class="rec-grid">
+          <div class="rec-card">
+            <div class="rec-img"><i class="ti ti-home" aria-hidden="true"></i></div>
+            <div class="rec-info">
+              <div class="rec-cat">Lifestyle</div>
+              <div class="rec-name">Aesthetic Room Diffuser</div>
+              <div class="rec-price">Rp 320.000</div>
+            </div>
+          </div>
+          <div class="rec-card">
+            <div class="rec-img"><i class="ti ti-shoe" aria-hidden="true"></i></div>
+            <div class="rec-info">
+              <div class="rec-cat">Sepatu</div>
+              <div class="rec-name">Suede Mule Flats</div>
+              <div class="rec-price">Rp 650.000</div>
+            </div>
+          </div>
+          <div class="rec-card">
+            <div class="rec-img"><i class="ti ti-watch" aria-hidden="true"></i></div>
+            <div class="rec-info">
+              <div class="rec-cat">Aksesoris</div>
+              <div class="rec-name">Gold Mesh Bracelet</div>
+              <div class="rec-price">Rp 1.150.000</div>
+            </div>
+          </div>
+          <div class="rec-card">
+            <div class="rec-img"><i class="ti ti-shirt" aria-hidden="true"></i></div>
+            <div class="rec-info">
+              <div class="rec-cat">Fashion</div>
+              <div class="rec-name">Linen Wrap Dress</div>
+              <div class="rec-price">Rp 780.000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="summary-col">
+      <div class="summary-card">
+        <div class="summary-title">Ringkasan Pesanan</div>
+
+        <div class="sum-row">
+          <span class="sum-key">Subtotal (<span id="itemCount">4</span> item)</span>
+          <span class="sum-val" id="subtotalEl">Rp 6.200.000</span>
+        </div>
+        <div class="sum-row">
+          <span class="sum-key">Diskon produk</span>
+          <span class="sum-val sum-red" id="itemDiscEl">−Rp 1.050.000</span>
+        </div>
+        <div class="sum-row" id="promoRow" style="display: none;">
+          <span class="sum-key">Promo LUMIERE10</span>
+          <span class="sum-val sum-red" id="promoDiscEl">−Rp 0</span>
+        </div>
+
+        <div class="sum-total">
+          <span class="total-label">Total</span>
+          <span class="total-val" id="totalEl">Rp 5.150.000</span>
+        </div>
+
+        <a href="lumiere-payment.html">
+          <button type="button" class="btn-checkout">
+            <i class="ti ti-lock" style="font-size: 15px;" aria-hidden="true"></i>
+            Lanjut ke Pembayaran
+          </button>
+        </a>
+        <a href="lumiere-home.html">
+          <button type="button" class="btn-continue">Lanjut Belanja</button>
+        </a>
+
+        <div class="trust-row">
+          <div class="trust-item">
+            <i class="ti ti-shield-check" aria-hidden="true"></i>
+            Pembayaran 100% aman &amp; terenkripsi
+          </div>
+          <div class="trust-item">
+            <i class="ti ti-refresh" aria-hidden="true"></i>
+            Retur gratis dalam 30 hari
+          </div>
+          <div class="trust-item">
+            <i class="ti ti-truck" aria-hidden="true"></i>
+            Gratis ongkir di atas Rp 500.000
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <script src="../javascript/lumiere-cart.js"></script>
+  
+  <script>
+    function initAuth() {
+      const user = JSON.parse(localStorage.getItem('lum_user') || 'null');
+      if (user) {
+        document.getElementById('guestMenu').style.display = 'none';
+        document.getElementById('loggedMenu').style.display = 'block';
+        const userBtn = document.getElementById('userBtn');
+        
+        // Memperbaiki warna teks dan background cetakan dinamis auth agar terbaca di tema gelap
+        if (user.foto) {
+          userBtn.innerHTML = `
+            <img src="../uploads/user/${user.foto}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid var(--border-soft);">
+            <span style="font-size:12px;font-weight:500;color:var(--white);margin-left:6px;">${user.nama}</span>
+          `;
+        } else {
+          userBtn.innerHTML = `
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--gold);color:var(--ink);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;">${user.nama.charAt(0).toUpperCase()}</div>
+            <span style="font-size:12px;font-weight:500;color:var(--white);margin-left:6px;">${user.nama}</span>
+          `;
+        }
+      }
+    }
+    initAuth();
+  </script>
+  
+  <script>
+    function toggleDropdown() {
+      const dd = document.getElementById('userDropdown');
+      dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+    }
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.user-menu-wrap')) {
+        document.getElementById('userDropdown').style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

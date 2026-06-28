@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil Saya — Lumière</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="../css/lumiere-profile.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <a href="lumiere-home.html" class="logo">Lumière</a>
+    <nav class="nav-links">
+      <span>Koleksi</span>
+      <span>Kategori</span>
+      <span>Editorial</span>
+    </nav>
+    <div class="nav-icons">
+      <i class="ti ti-search" aria-hidden="true"></i>
+      <i class="ti ti-heart" aria-hidden="true"></i>
+      <i class="ti ti-shopping-bag" aria-hidden="true"></i>
+    </div>
+  </header>
+  <div class="gold-bar"></div>
+
+  <div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="profile-block">
+        <div class="avatar">
+          RD
+          <div class="avatar-badge"><i class="ti ti-check" aria-hidden="true"></i></div>
+        </div>
+        <div class="user-name">Rania Dewi</div>
+        <div class="user-email">rania.dewi@email.com</div>
+        <div class="member-badge">
+          <i class="ti ti-crown" aria-hidden="true"></i>
+          Member Gold
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <div class="nav-section">Akun</div>
+        <button class="nav-item active" onclick="goPage('overview', this)">
+          <i class="ti ti-layout-dashboard" aria-hidden="true"></i> Ringkasan
+        </button>
+        <button class="nav-item" onclick="goPage('orders', this)">
+          <i class="ti ti-package" aria-hidden="true"></i> Pesanan Saya
+        </button>
+        <button class="nav-item" onclick="goPage('wishlist', this)">
+          <i class="ti ti-heart" aria-hidden="true"></i> Wishlist
+        </button>
+
+        <div class="nav-section">Pengaturan</div>
+        <button class="nav-item" onclick="goPage('profile', this)">
+          <i class="ti ti-user" aria-hidden="true"></i> Edit Profil
+        </button>
+        <button class="nav-item" onclick="goPage('address', this)">
+          <i class="ti ti-map-pin" aria-hidden="true"></i> Alamat
+        </button>
+        <button class="nav-item" onclick="goPage('notif', this)">
+          <i class="ti ti-bell" aria-hidden="true"></i> Notifikasi
+        </button>
+
+        <div class="nav-section">Lainnya</div>
+        <button class="nav-item danger" onclick="logout()">
+          <i class="ti ti-logout" aria-hidden="true"></i> Keluar
+        </button>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+
+      <!-- ══ OVERVIEW ══ -->
+      <div class="page active" id="page-overview">
+        <h1 class="page-title">Selamat datang, Rania</h1>
+        <p class="page-sub">Member Gold sejak Januari 2025 · Poin reward: 4.820</p>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-num">18</div>
+            <div class="stat-label">Total pesanan</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Dalam pengiriman</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">12</div>
+            <div class="stat-label">Wishlist</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num highlight">4.820</div>
+            <div class="stat-label">Poin reward</div>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <span class="section-title">Pesanan terbaru</span>
+          <button class="see-all" onclick="goPage('orders', document.querySelector('[onclick*=orders]'))">Lihat semua →</button>
+        </div>
+
+        <div class="order-card">
+          <div class="order-img"><i class="ti ti-watch" aria-hidden="true"></i></div>
+          <div class="order-info">
+            <div class="order-name">Ceramic Matte Watch</div>
+            <div class="order-meta">No. #LM-20482 · 18 Mei 2026</div>
+          </div>
+          <div class="order-right">
+            <div class="order-price">Rp 2.450.000</div>
+            <div class="order-status status-shipping">Dikirim</div>
+          </div>
+        </div>
+        <div class="order-card">
+          <div class="order-img"><i class="ti ti-shirt" aria-hidden="true"></i></div>
+          <div class="order-info">
+            <div class="order-name">Oversized Cotton Blazer</div>
+            <div class="order-meta">No. #LM-20391 · 2 Mei 2026</div>
+          </div>
+          <div class="order-right">
+            <div class="order-price">Rp 1.200.000</div>
+            <div class="order-status status-delivered">Diterima</div>
+          </div>
+        </div>
+        <div class="order-card">
+          <div class="order-img"><i class="ti ti-shopping-bag" aria-hidden="true"></i></div>
+          <div class="order-info">
+            <div class="order-name">Minimalist Leather Totebag</div>
+            <div class="order-meta">No. #LM-20204 · 14 Apr 2026</div>
+          </div>
+          <div class="order-right">
+            <div class="order-price">Rp 850.000</div>
+            <div class="order-status status-delivered">Diterima</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ ORDERS ══ -->
+      <div class="page" id="page-orders">
+        <h1 class="page-title">Pesanan Saya</h1>
+        <p class="page-sub">18 pesanan total · 3 sedang dalam pengiriman</p>
+
+        <div class="filter-row">
+          <button class="filter-btn active" onclick="filterPesanan('Semua', this)">Semua</button>
+          <button class="filter-btn" onclick="filterPesanan('Diproses', this)">Diproses</button>
+          <button class="filter-btn" onclick="filterPesanan('Dikirim', this)">Dikirim</button>
+          <button class="filter-btn" onclick="filterPesanan('Diterima', this)">Diterima</button>
+          <button class="filter-btn" onclick="filterPesanan('Selesai', this)">Selesai</button>
+          <button class="filter-btn" onclick="filterPesanan('Dibatalkan', this)">Dibatalkan</button>
+        </div>
+
+        <div class="order-card">
+          <div class="order-img"><i class="ti ti-watch" aria-hidden="true"></i></div>
+          <div class="order-info">
+            <div class="order-name">Ceramic Matte Watch</div>
+            <div class="order-meta">No. #LM-20482 · 18 Mei 2026 · Warna Abu-abu, Ukuran M</div>
+          </div>
+          <div class="order-right">
+            <div class="order-price">Rp 2.450.000</div>
+            <div class="order-status status-shipping">Dikirim</div>
+          </div>
+        </div>
+        <div class="order-card">
+          <div class="order-img"><i class="ti ti-home" aria-hidden="true"></i></div>
+          <div class="order-info">
+            <div class="order-name">Aesthetic Room Diffuser</div>
+            <div class="order-meta">No. #LM-20471 · 15 Mei 2026 · Lavender</div>
+          </div>
+          <div class="order-right">
+            <div class="order-price">Rp 320.000</div>
+            <div class="order-status status-shipping">Dikirim</div>
+          </div>
+        </div>
+        <div class="order-card">
+          <div class="order-img"><i class="ti ti-shirt" aria-hidden="true"></i></div>
+          <div class="order-info">
+            <div class="order-name">Oversized Cotton Blazer</div>
+            <div class="order-meta">No. #LM-20391 · 2 Mei 2026 · Cokelat, Ukuran M</div>
+          </div>
+          <div class="order-right">
+            <div class="order-price">Rp 1.200.000</div>
+            <div class="order-status status-delivered">Diterima</div>
+          </div>
+        </div>
+        <div class="order-card">
+          <div class="order-img"><i class="ti ti-shopping-bag" aria-hidden="true"></i></div>
+          <div class="order-info">
+            <div class="order-name">Minimalist Leather Totebag</div>
+            <div class="order-meta">No. #LM-20204 · 14 Apr 2026 · Krem</div>
+          </div>
+          <div class="order-right">
+            <div class="order-price">Rp 850.000</div>
+            <div class="order-status status-delivered">Diterima</div>
+          </div>
+        </div>
+        <div class="order-card">
+          <div class="order-img"><i class="ti ti-shoe" aria-hidden="true"></i></div>
+          <div class="order-info">
+            <div class="order-name">Canvas Slip-on Shoes</div>
+            <div class="order-meta">No. #LM-20180 · 1 Apr 2026 · Putih, UK 38</div>
+          </div>
+          <div class="order-right">
+            <div class="order-price">Rp 490.000</div>
+            <div class="order-status status-delivered">Diterima</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ WISHLIST ══ -->
+      <div class="page" id="page-wishlist">
+        <h1 class="page-title">Wishlist</h1>
+        <p class="page-sub">Memuat...</p>
+        <div class="wish-grid" id="wish-grid">
+          <!-- Diisi dinamis oleh lumiere-profile.js -->
+        </div>
+      </div>
+
+      <!-- ══ EDIT PROFILE ══ -->
+      <div class="page" id="page-profile">
+        <h1 class="page-title">Edit Profil</h1>
+        <p class="page-sub">Kelola informasi pribadi dan keamanan akun kamu</p>
+
+        <div id="profileForm">
+          <div class="form-sec-title">Foto profil</div>
+          <div class="profile-upload-row">
+            <div class="profile-upload-avatar">RD</div>
+            <div class="profile-upload-info">
+              <input type="file" id="foto-upload" accept="image/*" style="display:none" onchange="previewFoto(this)">
+              <button class="btn-primary" onclick="document.getElementById('foto-upload').click()">Ganti foto</button>
+              <button class="btn-secondary">Hapus</button>
+              <p>JPG atau PNG, maks. 2MB</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-sec-title">Informasi pribadi</div>
+          <div class="form-grid">
+            <div class="field">
+              <label for="fname">Nama depan</label>
+              <input id="fname" type="text" value="Rania">
+            </div>
+            <div class="field">
+              <label for="lname">Nama belakang</label>
+              <input id="lname" type="text" value="Dewi">
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" type="email" value="rania.dewi@email.com">
+            </div>
+            <div class="field">
+              <label for="phone">Nomor telepon</label>
+              <input id="phone" type="tel" value="+62 812 3456 7890">
+            </div>
+            <div class="field full">
+              <label for="dob">Tanggal lahir</label>
+              <input id="dob" type="date" value="1995-08-14">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-sec-title">Ubah kata sandi</div>
+          <div class="form-grid">
+            <div class="field full">
+              <label for="cur-pass">Kata sandi saat ini</label>
+              <input id="cur-pass" type="password" placeholder="••••••••">
+            </div>
+            <div class="field">
+              <label for="new-pass">Kata sandi baru</label>
+              <input id="new-pass" type="password" placeholder="Min. 8 karakter">
+            </div>
+            <div class="field">
+              <label for="conf-pass">Konfirmasi kata sandi baru</label>
+              <input id="conf-pass" type="password" placeholder="Ulangi kata sandi">
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button type="button" class="btn-primary" id="btn-simpan-profil" onclick="document.querySelector('#page-profile form').dispatchEvent(new Event('submit'))">Simpan perubahan</button>
+          <button type="button" class="btn-secondary" onclick="location.reload()">Batal</button>
+        </div>
+      </div>
+
+      <!-- ══ ADDRESS ══ -->
+      <div class="page" id="page-address">
+        <h1 class="page-title">Alamat Pengiriman</h1>
+        <p class="page-sub">Kelola alamat pengiriman yang tersimpan</p>
+
+        <div class="addr-card">
+          <div>
+            <div class="addr-name">Rania Dewi · +62 812 3456 7890</div>
+            <div class="addr-text">
+              Jl. Kemang Raya No. 45, Apt. 12B<br>
+              Kemang, Jakarta Selatan 12730<br>
+              DKI Jakarta
+            </div>
+            <span class="addr-badge">Utama</span>
+          </div>
+          <div class="addr-actions">
+            <span>Edit</span>
+            <span class="address-separator">|</span>
+            <span class="text-muted">Hapus</span>
+          </div>
+        </div>
+
+        <div class="addr-card">
+          <div>
+            <div class="addr-name">Rania Dewi · +62 812 3456 7890</div>
+            <div class="addr-text">
+              Jl. Sudirman Blok C No. 7<br>
+              Menteng, Jakarta Pusat 10310<br>
+              DKI Jakarta
+            </div>
+          </div>
+          <div class="addr-actions">
+            <span>Edit</span>
+            <span class="address-separator">|</span>
+            <span class="text-muted">Hapus</span>
+          </div>
+        </div>
+
+        <button class="btn-primary address-add-button" onclick="bukaFormAlamat()">
+        <i class="ti ti-plus" aria-hidden="true"></i>
+        Tambah alamat baru
+        </button>
+      </div>
+
+      <!-- ══ NOTIFICATIONS ══ -->
+      <div class="page" id="page-notif">
+        <h1 class="page-title">Notifikasi</h1>
+        <p class="page-sub">Atur preferensi notifikasi kamu</p>
+
+        <div class="notif-group">
+          <div class="notif-group-title">Email</div>
+          <div class="notif-row">
+            <div>
+              <div class="notif-label">Pesanan &amp; pengiriman</div>
+              <div class="notif-desc">Update status pesanan dan nomor resi</div>
+            </div>
+            <button class="toggle on" onclick="toggleSwitch(this)" aria-label="Toggle notifikasi pesanan">
+              <div class="toggle-dot"></div>
+            </button>
+          </div>
+          <div class="notif-row">
+            <div>
+              <div class="notif-label">Koleksi baru</div>
+              <div class="notif-desc">Pemberitahuan setiap Jumat koleksi baru dirilis</div>
+            </div>
+            <button class="toggle on" onclick="toggleSwitch(this)" aria-label="Toggle notifikasi koleksi baru">
+              <div class="toggle-dot"></div>
+            </button>
+          </div>
+          <div class="notif-row">
+            <div>
+              <div class="notif-label">Promo &amp; diskon</div>
+              <div class="notif-desc">Penawaran eksklusif untuk member Lumière</div>
+            </div>
+            <button class="toggle" onclick="toggleSwitch(this)" aria-label="Toggle notifikasi promo">
+              <div class="toggle-dot"></div>
+            </button>
+          </div>
+          <div class="notif-row">
+            <div>
+              <div class="notif-label">Ulasan produk</div>
+              <div class="notif-desc">Pengingat untuk memberikan ulasan setelah pembelian</div>
+            </div>
+            <button class="toggle" onclick="toggleSwitch(this)" aria-label="Toggle notifikasi ulasan">
+              <div class="toggle-dot"></div>
+            </button>
+          </div>
+        </div>
+
+        <div class="notif-group">
+          <div class="notif-group-title">Push notifikasi</div>
+          <div class="notif-row">
+            <div>
+              <div class="notif-label">Status pesanan real-time</div>
+              <div class="notif-desc">Notifikasi langsung di perangkat kamu</div>
+            </div>
+            <button class="toggle on" onclick="toggleSwitch(this)" aria-label="Toggle push notifikasi pesanan">
+              <div class="toggle-dot"></div>
+            </button>
+          </div>
+          <div class="notif-row">
+            <div>
+              <div class="notif-label">Flash sale</div>
+              <div class="notif-desc">Penawaran terbatas waktu dari Lumière</div>
+            </div>
+            <button class="toggle" onclick="toggleSwitch(this)" aria-label="Toggle push notifikasi flash sale">
+              <div class="toggle-dot"></div>
+            </button>
+          </div>
+          <div class="notif-row">
+            <div>
+              <div class="notif-label">Wishlist tersedia</div>
+              <div class="notif-desc">Notifikasi saat item di wishlist restok atau diskon</div>
+            </div>
+            <button class="toggle on" onclick="toggleSwitch(this)" aria-label="Toggle notifikasi wishlist">
+              <div class="toggle-dot"></div>
+            </button>
+          </div>
+        </div>
+
+        <button class="btn-primary">Simpan preferensi</button>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../javascript/lumiere-profile.js"></script>
+  <script>
+function initProfile() {
+  const user = JSON.parse(localStorage.getItem('lum_user') || 'null');
+  if (!user) {
+    window.location.href = 'lumiere-auth.html?tab=login';
+    return;
+  }
+
+  // Update avatar & nama di sidebar
+  const avatar = document.querySelector('.avatar');
+  const inisial = user.nama.charAt(0).toUpperCase();
+  avatar.innerHTML = `${inisial}<div class="avatar-badge"><i class="ti ti-check"></i></div>`;
+
+  document.querySelector('.user-name').textContent = user.nama;
+
+  // Update navbar jadi avatar
+  const navIcons = document.querySelector('.nav-icons');
+  const avatarHtml = user.foto
+    ? `<img src="../uploads/user/${user.foto}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0;">`
+    : `<div style="width:28px;height:28px;border-radius:50%;background:#2C2A26;color:#F5F2EC;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;">${inisial}</div>`;
+
+  const userIconHtml = `
+    <div style="display:flex;align-items:center;gap:6px;cursor:pointer">
+      ${avatarHtml}
+      <span style="font-size:12px;font-weight:500;color:#2C2A26;">${user.nama}</span>
+    </div>
+  `;
+  navIcons.innerHTML = `
+    <i class="ti ti-search"></i>
+    <i class="ti ti-heart"></i>
+    <i class="ti ti-shopping-bag"></i>
+    ${userIconHtml}
+  `;
+
+  // Fetch data lengkap dari database
+  fetch('../backand/user.php?action=get')
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === 'sukses') {
+        const u = data.data;
+        document.querySelector('.user-email').textContent = u.email;
+        // Update input fields kalau ada
+        const inputNama = document.getElementById('input-nama-depan');
+        const inputBelakang = document.getElementById('input-nama-belakang');
+        const inputEmail = document.getElementById('input-email');
+        const inputTelp = document.getElementById('input-telp');
+        if (inputNama) inputNama.value = u.nama_depan;
+        if (inputBelakang) inputBelakang.value = u.nama_belakang;
+        if (inputEmail) inputEmail.value = u.email;
+        if (inputTelp) inputTelp.value = u.no_telp;
+      }
+    });
+}
+
+function logout() {
+  fetch('../backand/logout.php').then(() => {
+    localStorage.removeItem('lum_user');
+    window.location.href = 'lumiere-auth.html?tab=login';
+  });
+}
+
+initProfile();
+</script>
+</body>
+</html>

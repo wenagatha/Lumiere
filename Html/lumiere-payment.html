@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pembayaran — Lumière</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="../css/lumiere-payment.css">
+</head>
+<body>
+
+<div class="bg-layer" id="bg-payment"></div>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <a href="lumiere-home.html" class="logo">Lumière</a>
+    <div class="secure-badge">
+      <i class="ti ti-lock" aria-hidden="true"></i>
+      Pembayaran aman &amp; terenkripsi
+    </div>
+  </header>
+  <div class="gold-bar"></div>
+
+  <!-- Steps -->
+  <div class="steps" role="list" aria-label="Langkah checkout">
+    <div class="step done" role="listitem">
+      <div class="step-num"><i class="ti ti-check" style="font-size:10px;" aria-hidden="true"></i></div>
+      <span>Keranjang</span>
+    </div>
+    <div class="step-line" aria-hidden="true"></div>
+    <div class="step active" role="listitem" aria-current="step">
+      <div class="step-num">2</div>
+      <span>Pembayaran</span>
+    </div>
+    <div class="step-line" aria-hidden="true"></div>
+    <div class="step" role="listitem">
+      <div class="step-num">3</div>
+      <span>Pengiriman</span>
+    </div>
+    <div class="step-line" aria-hidden="true"></div>
+    <div class="step" role="listitem">
+      <div class="step-num">4</div>
+      <span>Selesai</span>
+    </div>
+  </div>
+
+  <main class="layout">
+
+    <!-- Left: Payment form -->
+    <div class="pay-col">
+
+      <!-- Delivery address -->
+      <div class="addr-block">
+        <div class="sec-label">Alamat pengiriman</div>
+        <div id="addrListContainer">
+        <div class="addr-card selected" onclick="selectAddr(this)">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div style="flex:1;">
+            <div class="addr-name">Rania Dewi · +62 812 3456 7890</div>
+            <div class="addr-text">Jl. Kemang Raya No. 45, Apt. 12B, Kemang, Jakarta Selatan 12730, DKI Jakarta</div>
+          </div>
+          <span class="addr-primary-badge">Utama</span>
+        </div>
+        <div class="addr-card" id="addrCustomCard" onclick="selectAddrCustom(this)">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div style="flex:1;">
+            <div class="addr-name">Alamat Lain</div>
+            <div class="addr-text" id="addrCustomPreview">Klik untuk mengisi alamat baru</div>
+          </div>
+          <span class="addr-primary-badge" style="background:var(--cream-dark);color:var(--muted);">+ Baru</span>
+        </div>
+
+        </div><!-- /addrListContainer -->
+
+        <!-- Custom address form -->
+        <div id="customAddrForm" style="display:none; background:var(--white); border:0.5px solid var(--border); border-radius:2px; padding:1.25rem; margin-bottom:8px;">
+          <div class="sec-label" style="margin-bottom:1rem;">Isi Alamat Baru</div>
+          <div class="field-row" style="margin-bottom:0.75rem;">
+            <div class="field" style="margin-bottom:0;">
+              <label for="customName">Nama Penerima</label>
+              <input id="customName" type="text" placeholder="Nama lengkap" oninput="updateCustomPreview()">
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label for="customPhone">Nomor Telepon</label>
+              <input id="customPhone" type="tel" placeholder="+62 8xx xxxx xxxx" oninput="updateCustomPreview()">
+            </div>
+          </div>
+          <div class="field" style="margin-bottom:0.75rem;">
+            <label for="customStreet">Alamat Jalan</label>
+            <input id="customStreet" type="text" placeholder="Nama jalan, nomor rumah/gedung/apartemen" oninput="updateCustomPreview()">
+          </div>
+          <div class="field-row" style="margin-bottom:0.75rem;">
+            <div class="field" style="margin-bottom:0;">
+              <label for="customDistrict">Kecamatan / Kelurahan</label>
+              <input id="customDistrict" type="text" placeholder="Kecamatan" oninput="updateCustomPreview()">
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label for="customCity">Kota / Kabupaten</label>
+              <input id="customCity" type="text" placeholder="Kota" oninput="updateCustomPreview()">
+            </div>
+          </div>
+          <div class="field-row" style="margin-bottom:1rem;">
+            <div class="field" style="margin-bottom:0;">
+              <label for="customProvince">Provinsi</label>
+              <input id="customProvince" type="text" placeholder="Provinsi" oninput="updateCustomPreview()">
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label for="customPostal">Kode Pos</label>
+              <input id="customPostal" type="text" placeholder="00000" maxlength="5" oninput="updateCustomPreview()">
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button onclick="saveCustomAddr()" style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:var(--charcoal);color:var(--cream);border:none;border-radius:2px;cursor:pointer;" onmouseover="this.style.background='var(--gold-dark)'" onmouseout="this.style.background='var(--charcoal)'">Simpan</button>
+            <button onclick="cancelCustomAddr()" style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:transparent;color:var(--muted);border:0.5px solid var(--border);border-radius:2px;cursor:pointer;">Batal</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shipping method -->
+      <div class="shipping-block">
+        <div class="sec-label">Jasa Pengiriman</div>
+
+        <div class="shipping-option selected" onclick="selectShipping(this,'jne','JNE Regular',35000,'Estimasi 2–3 hari kerja','#CC0000','#fff')">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div class="courier-logo" style="background:#CC0000;color:#fff;">JNE</div>
+          <div class="opt-label">
+            <div class="opt-name">JNE Regular</div>
+            <div class="opt-desc">Estimasi 2–3 hari kerja</div>
+          </div>
+          <div class="ship-price">Rp 35.000</div>
+        </div>
+
+        <div class="shipping-option" onclick="selectShipping(this,'grab','Grab Express',55000,'Same day, tiba hari ini','#00B14F','#fff')">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div class="courier-logo" style="background:#00B14F;color:#fff;font-size:9px;">GRAB</div>
+          <div class="opt-label">
+            <div class="opt-name">Grab Express</div>
+            <div class="opt-desc">Same day, tiba hari ini</div>
+          </div>
+          <div class="ship-price">Rp 55.000</div>
+        </div>
+
+        <div class="shipping-option" onclick="selectShipping(this,'kargo','Kargo Freight',0,'Estimasi 5–7 hari kerja · Gratis untuk pesanan di atas Rp 3jt','#2C5F8A','#fff')">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div class="courier-logo" style="background:#2C5F8A;color:#fff;font-size:9px;">KARGO</div>
+          <div class="opt-label">
+            <div class="opt-name">Kargo Freight</div>
+            <div class="opt-desc">Estimasi 5–7 hari kerja · Gratis untuk pesanan &gt; Rp 3jt</div>
+          </div>
+          <div class="ship-price free-ship">Gratis</div>
+        </div>
+      </div>
+      <div class="sec-label">Metode pembayaran</div>
+      <div class="method-tabs" role="tablist">
+        <button class="mtab active" role="tab" aria-selected="true" onclick="switchMethod('va', this)">
+          <i class="ti ti-building-bank" aria-hidden="true"></i>Transfer Bank
+        </button>
+        <button class="mtab" role="tab" aria-selected="false" onclick="switchMethod('ewallet', this)">
+          <i class="ti ti-wallet" aria-hidden="true"></i>E-Wallet
+        </button>
+        <button class="mtab" role="tab" aria-selected="false" onclick="switchMethod('qris', this)">
+          <i class="ti ti-qrcode" aria-hidden="true"></i>QRIS
+        </button>
+      </div>
+
+      <!-- ════ TRANSFER BANK ════ -->
+      <div class="pay-section active" id="sec-va" role="tabpanel">
+        <div class="timer-box">
+          <i class="ti ti-clock" aria-hidden="true"></i>
+          Selesaikan pembayaran dalam&nbsp;<strong id="timer">23:59:47</strong>
+        </div>
+
+        <div class="option-row selected" onclick="selectBank(this,'bca','BCA Virtual Account','808 1234 5678 901','BCA','#003087','#fff','Transfer via m-BCA, ATM, atau internet banking')">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div class="bank-logo" style="background:#003087;color:#fff;">BCA</div>
+          <div class="opt-label">
+            <div class="opt-name">BCA Virtual Account</div>
+            <div class="opt-desc">Transfer via m-BCA, ATM, atau internet banking</div>
+          </div>
+          <div class="opt-fee free">Gratis</div>
+        </div>
+
+        <div class="option-row" onclick="selectBank(this,'mandiri','Mandiri Virtual Account','88608 1234 5678 901','MANDIRI','#003D7C','#F5A623','Transfer via Livin\u0027, ATM, atau internet banking')">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div class="bank-logo" style="background:#003D7C;color:#F5A623;font-size:9px;">MANDIRI</div>
+          <div class="opt-label">
+            <div class="opt-name">Mandiri Virtual Account</div>
+            <div class="opt-desc">Transfer via Livin', ATM, atau internet banking</div>
+          </div>
+          <div class="opt-fee free">Gratis</div>
+        </div>
+
+        <div class="option-row" onclick="selectBank(this,'bni','BNI Virtual Account','988 1234 5678 901','BNI','#F58220','#fff','Transfer via BNI Mobile Banking, ATM, atau kantor')">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div class="bank-logo" style="background:#F58220;color:#fff;">BNI</div>
+          <div class="opt-label">
+            <div class="opt-name">BNI Virtual Account</div>
+            <div class="opt-desc">Transfer via BNI Mobile Banking, ATM, atau kantor</div>
+          </div>
+          <div class="opt-fee free">Gratis</div>
+        </div>
+
+        <div class="option-row" onclick="selectBank(this,'bri','BRI Virtual Account','26215 1234 5678 901','BRI','#003DA5','#fff','Transfer via BRImo, ATM, atau internet banking')">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div class="bank-logo" style="background:#003DA5;color:#fff;">BRI</div>
+          <div class="opt-label">
+            <div class="opt-name">BRI Virtual Account</div>
+            <div class="opt-desc">Transfer via BRImo, ATM, atau internet banking</div>
+          </div>
+          <div class="opt-fee free">Gratis</div>
+        </div>
+
+        <div class="option-row" onclick="selectBank(this,'permata','Permata Virtual Account','8001 1234 5678 901','PERMATA','#D4002B','#fff','Transfer via PermataMobile X atau ATM')">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div class="bank-logo" style="background:#D4002B;color:#fff;font-size:9px;">PERMATA</div>
+          <div class="opt-label">
+            <div class="opt-name">Permata Virtual Account</div>
+            <div class="opt-desc">Transfer via PermataMobile X atau ATM</div>
+          </div>
+          <div class="opt-fee free">Gratis</div>
+        </div>
+
+        <div class="option-row" onclick="selectBank(this,'cimb','CIMB Niaga Virtual Account','2312 1234 5678 901','CIMB','#CC0000','#fff','Transfer via OCTO Mobile, ATM, atau internet banking')">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div class="bank-logo" style="background:#CC0000;color:#fff;font-size:9px;">CIMB</div>
+          <div class="opt-label">
+            <div class="opt-name">CIMB Niaga Virtual Account</div>
+            <div class="opt-desc">Transfer via OCTO Mobile, ATM, atau internet banking</div>
+          </div>
+          <div class="opt-fee free">Gratis</div>
+        </div>
+      </div>
+
+      <!-- ════ E-WALLET ════ -->
+      <div class="pay-section" id="sec-ewallet" role="tabpanel">
+        <div class="timer-box">
+          <i class="ti ti-clock" aria-hidden="true"></i>
+          Selesaikan pembayaran dalam&nbsp;<strong id="timerEw">23:59:47</strong>
+        </div>
+
+        <div class="option-row selected" onclick="selectEwallet(this,'gopay','GoPay','#45B649','#fff','Konfirmasi pembayaran di aplikasi Gojek kamu.','LMR-GPAY-2890 3471')">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div class="bank-logo" style="background:#45B649;color:#fff;">GoPay</div>
+          <div class="opt-label">
+            <div class="opt-name">GoPay</div>
+            <div class="opt-desc">Bayar langsung via aplikasi Gojek.</div>
+          </div>
+          <div class="opt-fee free">Gratis</div>
+        </div>
+
+        <div class="option-row" onclick="selectEwallet(this,'ovo','OVO','#4C3494','#fff','Konfirmasi pembayaran di aplikasi OVO kamu.','LMR-OVO0-5512 8843')">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div class="bank-logo" style="background:#4C3494;color:#fff;">OVO</div>
+          <div class="opt-label">
+            <div class="opt-name">OVO</div>
+            <div class="opt-desc">Konfirmasi pembayaran di aplikasi OVO.</div>
+          </div>
+          <div class="opt-fee free">Gratis</div>
+        </div>
+
+        <div class="option-row" onclick="selectEwallet(this,'dana','DANA','#118EEA','#fff','Konfirmasi pembayaran di aplikasi DANA kamu.','LMR-DANA-7734 9201')">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div class="bank-logo" style="background:#118EEA;color:#fff;">DANA</div>
+          <div class="opt-label">
+            <div class="opt-name">DANA</div>
+            <div class="opt-desc">Bayar langsung via aplikasi DANA.</div>
+          </div>
+          <div class="opt-fee free">Gratis</div>
+        </div>
+
+        <div class="option-row" onclick="selectEwallet(this,'shopeepay','ShopeePay','#EE4D2D','#fff','Konfirmasi pembayaran di aplikasi Shopee kamu.','LMR-SPAY-3318 6650')">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div class="bank-logo" style="background:#EE4D2D;color:#ffffff;font-size:9px;">Shopee Pay</div>
+          <div class="opt-label">
+            <div class="opt-name">ShopeePay</div>
+            <div class="opt-desc">Bayar langsung via aplikasi Shopee.</div>
+          </div>
+          <div class="opt-fee free">Gratis</div>
+        </div>
+
+        <div class="option-row" onclick="selectEwallet(this,'linkaja','LinkAja','#E40421','#fff','Konfirmasi pembayaran di aplikasi LinkAja kamu.','LMR-LAJA-9901 4427')">
+          <div class="radio-dot"><div class="radio-inner"></div></div>
+          <div class="bank-logo" style="background:#E40421;color:#fff;font-size:9px;">LinkAja</div>
+          <div class="opt-label">
+            <div class="opt-name">LinkAja</div>
+            <div class="opt-desc">Bayar langsung via aplikasi LinkAja.</div>
+          </div>
+          <div class="opt-fee free">Gratis</div>
+        </div>
+      </div>
+
+      <!-- ════ QRIS ════ -->
+      <div class="pay-section" id="sec-qris" role="tabpanel">
+        <div style="background:var(--white);border:0.5px solid var(--border);border-radius:2px;padding:2rem;text-align:center;">
+          <div style="font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;">Scan untuk membayar</div>
+          <div style="display:inline-block;padding:14px;background:#fff;border:0.5px solid var(--border);border-radius:4px;margin-bottom:1rem;">
+            <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+              <!-- Finder pattern TL -->
+              <rect x="10" y="10" width="50" height="50" fill="#2C2A26"/>
+              <rect x="17" y="17" width="36" height="36" fill="#FDFCF9"/>
+              <rect x="24" y="24" width="22" height="22" fill="#2C2A26"/>
+              <!-- Finder pattern TR -->
+              <rect x="120" y="10" width="50" height="50" fill="#2C2A26"/>
+              <rect x="127" y="17" width="36" height="36" fill="#FDFCF9"/>
+              <rect x="134" y="24" width="22" height="22" fill="#2C2A26"/>
+              <!-- Finder pattern BL -->
+              <rect x="10" y="120" width="50" height="50" fill="#2C2A26"/>
+              <rect x="17" y="127" width="36" height="36" fill="#FDFCF9"/>
+              <rect x="24" y="134" width="22" height="22" fill="#2C2A26"/>
+              <!-- Timing horizontal -->
+              <rect x="68" y="68" width="7" height="7" fill="#2C2A26"/>
+              <rect x="82" y="68" width="7" height="7" fill="#2C2A26"/>
+              <rect x="96" y="68" width="7" height="7" fill="#2C2A26"/>
+              <rect x="110" y="68" width="7" height="7" fill="#2C2A26"/>
+              <!-- Timing vertical -->
+              <rect x="68" y="82" width="7" height="7" fill="#2C2A26"/>
+              <rect x="68" y="96" width="7" height="7" fill="#2C2A26"/>
+              <rect x="68" y="110" width="7" height="7" fill="#2C2A26"/>
+              <!-- Data modules cluster 1 -->
+              <rect x="82" y="82" width="7" height="7" fill="#2C2A26"/>
+              <rect x="96" y="82" width="7" height="7" fill="#2C2A26"/>
+              <rect x="82" y="96" width="7" height="7" fill="#2C2A26"/>
+              <rect x="110" y="96" width="7" height="7" fill="#2C2A26"/>
+              <rect x="96" y="110" width="7" height="7" fill="#2C2A26"/>
+              <rect x="110" y="110" width="7" height="7" fill="#2C2A26"/>
+              <!-- Data modules cluster 2 (TR area) -->
+              <rect x="120" y="68" width="7" height="7" fill="#2C2A26"/>
+              <rect x="134" y="68" width="7" height="7" fill="#2C2A26"/>
+              <rect x="148" y="68" width="7" height="7" fill="#2C2A26"/>
+              <rect x="120" y="82" width="7" height="7" fill="#2C2A26"/>
+              <rect x="148" y="82" width="7" height="7" fill="#2C2A26"/>
+              <rect x="134" y="96" width="7" height="7" fill="#2C2A26"/>
+              <rect x="120" y="110" width="7" height="7" fill="#2C2A26"/>
+              <rect x="148" y="110" width="7" height="7" fill="#2C2A26"/>
+              <!-- Data modules cluster 3 (BL area) -->
+              <rect x="68" y="120" width="7" height="7" fill="#2C2A26"/>
+              <rect x="82" y="120" width="7" height="7" fill="#2C2A26"/>
+              <rect x="68" y="134" width="7" height="7" fill="#2C2A26"/>
+              <rect x="96" y="134" width="7" height="7" fill="#2C2A26"/>
+              <rect x="82" y="148" width="7" height="7" fill="#2C2A26"/>
+              <rect x="96" y="148" width="7" height="7" fill="#2C2A26"/>
+              <!-- Data modules cluster 4 (BR area) -->
+              <rect x="120" y="120" width="7" height="7" fill="#2C2A26"/>
+              <rect x="134" y="120" width="7" height="7" fill="#2C2A26"/>
+              <rect x="148" y="120" width="7" height="7" fill="#2C2A26"/>
+              <rect x="120" y="134" width="7" height="7" fill="#2C2A26"/>
+              <rect x="148" y="134" width="7" height="7" fill="#2C2A26"/>
+              <rect x="134" y="148" width="7" height="7" fill="#2C2A26"/>
+              <rect x="148" y="148" width="7" height="7" fill="#2C2A26"/>
+              <!-- Extra scatter modules -->
+              <rect x="75" y="75" width="4" height="4" fill="#2C2A26"/>
+              <rect x="103" y="75" width="4" height="4" fill="#2C2A26"/>
+              <rect x="89" y="89" width="4" height="4" fill="#2C2A26"/>
+              <rect x="117" y="89" width="4" height="4" fill="#2C2A26"/>
+              <rect x="75" y="103" width="4" height="4" fill="#2C2A26"/>
+              <rect x="103" y="117" width="4" height="4" fill="#2C2A26"/>
+              <rect x="131" y="75" width="4" height="4" fill="#2C2A26"/>
+              <rect x="145" y="89" width="4" height="4" fill="#2C2A26"/>
+              <rect x="131" y="103" width="4" height="4" fill="#2C2A26"/>
+              <rect x="75" y="131" width="4" height="4" fill="#2C2A26"/>
+              <rect x="89" y="145" width="4" height="4" fill="#2C2A26"/>
+              <rect x="117" y="131" width="4" height="4" fill="#2C2A26"/>
+              <rect x="131" y="131" width="4" height="4" fill="#2C2A26"/>
+              <rect x="145" y="145" width="4" height="4" fill="#2C2A26"/>
+            </svg>
+          </div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:4px;">Lumière Official</div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:0.5rem;">ID Merchant: LMR-2024-001</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.8;">
+            Scan dengan e-wallet atau mobile banking apapun.<br>
+            Berlaku untuk semua bank &amp; dompet digital berlogo <strong style="color:var(--charcoal);">QRIS</strong>.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right: Order summary -->
+    <aside class="sum-col">
+      <div class="summary-card">
+        <div class="sum-title">Detail Pesanan</div>
+
+        <div class="items-mini" id="itemsMini">
+          <!-- Diisi dinamis oleh lumiere-payment.js dari keranjang.php -->
+        </div>
+
+        <div class="sum-row"><span class="sum-key">Subtotal</span><span class="sum-val" id="summarySubtotal">Rp —</span></div>
+        <div class="sum-row" id="rowDiskon"><span class="sum-key">Diskon produk</span><span class="sum-val sum-red" id="summaryDiskon"></span></div>
+        <div class="sum-row" id="rowPromo"><span class="sum-key">Promo</span><span class="sum-val sum-red" id="summaryPromo"></span></div>
+        <div class="sum-row"><span class="sum-key">Ongkos kirim</span><span class="sum-val" id="shippingDisplay">Rp 35.000</span></div>
+        <div class="sum-row"><span class="sum-key">Biaya layanan</span><span class="sum-val sum-green">Gratis</span></div>
+
+        <div class="sum-total">
+          <span class="total-label">Total</span>
+          <span class="total-val" id="grandTotal">Rp 3.905.000</span>
+        </div>
+
+        <button class="btn-pay" id="btnPay" onclick="handlePay()">
+          <i class="ti ti-lock" style="font-size:15px;" aria-hidden="true"></i>
+          Bayar Sekarang
+        </button>
+
+        <div class="trust-mini">
+          <div class="trust-item"><i class="ti ti-shield-check" aria-hidden="true"></i> Enkripsi SSL 256-bit</div>
+          <div class="trust-item"><i class="ti ti-refresh" aria-hidden="true"></i> Retur gratis 30 hari</div>
+          <div class="trust-item"><i class="ti ti-headset" aria-hidden="true"></i> CS aktif 08.00–22.00 WIB</div>
+        </div>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- ════ PAYMENT POP-OUT MODAL ════ -->
+  <div class="modal-overlay" id="payModal">
+    <div class="modal-box">
+      <div class="modal-header" id="modalHeader">
+        <div class="modal-title" id="modalTitle">Instruksi Pembayaran</div>
+        <button class="modal-close" onclick="closeModal()" aria-label="Tutup">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer" id="modalFooter"></div>
+    </div>
+  </div>
+
+<script src="../javascript/lumiere-payment.js"></script>
+</body>
+</html>
